@@ -1,0 +1,62 @@
+.select2-container--default .select2-selection--single {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered
+    li {
+    color: black;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    height: 34px;
+}
+.select2-container--default .select2-search--inline .select2-search__field {
+    padding-left: 10px;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 5px;
+}
+.img_prew_sub {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.img_prew {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.img_show {
+    width: 100px;
+    height: 120px;
+    position: relative;
+}
+.img_show img {
+    width: 100%;
+    height: 100%;
+}
+.delete_imgshow {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+}
+.img_show:hover .delete_imgshow {
+    display: block;
+}
