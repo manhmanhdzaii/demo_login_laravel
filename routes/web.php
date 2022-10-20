@@ -36,3 +36,19 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/', [DashbroadController::class, 'index'])->name('index');
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+
+        Route::get('/add', [UserController::class, 'add'])->name('add');
+        Route::post('/add', [UserController::class, 'postAdd']);
+
+        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
+        Route::post('/edit/{user}', [UserController::class, 'postEdit']);
+
+        Route::get('/delete/{user}', [UserController::class, 'delete'])->name('delete');
+    });
+});
