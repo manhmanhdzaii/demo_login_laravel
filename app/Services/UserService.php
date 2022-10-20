@@ -11,10 +11,26 @@ class UserService extends BaseService
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->userRepositsory = $userRepository;
+        $this->userRepository = $userRepository;
     }
-    public function index()
+    public function getAll()
     {
-        return "aaaaaaaaaaa";
+        $list = $this->userRepository->getAll();
+        return $list;
+    }
+    public function createUser($request)
+    {
+        $result = $this->userRepository->createUser($request);
+        return $result;
+    }
+    public function updateUser($user, $request)
+    {
+        $result = $this->userRepository->updateUser($user, $request);
+        return $result;
+    }
+    public function deleteUser($user)
+    {
+        $result = $this->userRepository->deleteUser($user);
+        return $result;
     }
 }
