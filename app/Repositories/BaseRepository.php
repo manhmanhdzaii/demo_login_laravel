@@ -6,7 +6,23 @@ use App\Repositories\BaseRepositoryInterface;
 
 class BaseRepository implements BaseRepositoryInterface
 {
-    public function index()
+    function getAll()
+    {
+    }
+
+    function find($id)
+    {
+    }
+
+    function create($attributes = [])
+    {
+    }
+
+    function update($id, $attributes = [])
+    {
+    }
+
+    function delete($id)
     {
     }
 }

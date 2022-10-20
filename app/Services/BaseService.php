@@ -6,7 +6,23 @@ use App\Services\BaseServiceInterface;
 
 class BaseService implements BaseServiceInterface
 {
-    public function index()
+    function getAll()
+    {
+    }
+
+    function find($id)
+    {
+    }
+
+    function create($attributes = [])
+    {
+    }
+
+    function update($id, $attributes = [])
+    {
+    }
+
+    function delete($id)
     {
     }
 }

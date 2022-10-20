@@ -27,4 +27,23 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => ['required', 'confirmed', 'min:8'],
+        ];
+    }
+    protected function validationErrorMessages()
+    {
+        return [
+            'token.required' => 'Token không được để trống',
+            'email.required' => 'Địa chỉ email không được để trống',
+            'email.email' => 'Địa chỉ email không đúng định dạng',
+            'password.required' => 'Mật khẩu không được để trống',
+            'password.confirmed' => 'Xác nhận mật khẩu không khớp',
+            'password.min' => 'Mật khẩu phải từ :min ký tự',
+        ];
+    }
 }
