@@ -15,12 +15,31 @@ class UserRepository extends BaseRepository
         $this->user = $user;
     }
 
+    /**
+     * Desc: Phương thức lấy danh sách user
+     *
+     */
     public function getAll()
     {
         $lists = $this->user->get();
         return $lists;
     }
-    public function createUser($request)
+
+    /**
+     * Desc: Phương thức bản ghi user theo id
+     *
+     */
+    public function getOne(string $id)
+    {
+        $user = $this->user->find($id);
+        return $user;
+    }
+
+    /**
+     * Desc: Phương thức tạo mới user
+     *
+     */
+    public function createUser(object $request)
     {
         $user = new $this->user;
         $user->name = $request->name;
@@ -31,7 +50,12 @@ class UserRepository extends BaseRepository
         $user->save();
         return true;
     }
-    public function updateUser($user, $request)
+
+    /**
+     * Desc: Phương thức cập nhật thông tin user
+     *
+     */
+    public function updateUser(object $user, object $request)
     {
         $user->name = $request->name;
         $user->email = $request->email;
@@ -43,7 +67,12 @@ class UserRepository extends BaseRepository
         $user->save();
         return true;
     }
-    public function deleteUser($user)
+
+    /**
+     * Desc: Phương thức xóa user
+     *
+     */
+    public function deleteUser(object $user)
     {
         $this->user->destroy($user->id);
         return true;

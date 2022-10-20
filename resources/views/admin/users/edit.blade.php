@@ -16,6 +16,11 @@
 <div class="alert alert-success">
     {{session('msg')}}
 </div>
+@if(session('err'))
+<div class="alert alert-danger">
+    {{session('err')}}
+</div>
+@endif
 @endif
 <form action="" method="post">
     <div class="mb-3">

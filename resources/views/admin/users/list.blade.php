@@ -11,6 +11,11 @@
     {{session('msg')}}
 </div>
 @endif
+@if(session('err'))
+<div class="alert alert-danger">
+    {{session('err')}}
+</div>
+@endif
 <p><a href="{{route('admin.users.add')}}" class="btn btn-primary">Thêm mới</a></p>
 <table class="table table-bordered">
     <thead>
@@ -34,11 +39,11 @@
             <td>{{ $list->role }}</td>
             <td>{{ $list->email_verified_at != NULL ? 'Đã kích hoạt' : 'Chưa kích hoạt'}}</td>
             <td>
-                <a href="{{route('admin.users.edit', $list)}}" class="btn btn-warning">Sửa</a>
+                <a href="{{route('admin.users.edit', $list->id)}}" class="btn btn-warning">Sửa</a>
             </td>
             <td>
                 @if(Auth::user()->id != $list->id )
-                <a href="{{route('admin.users.delete', $list)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a>
+                <a href="{{route('admin.users.delete', $list->id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a>
                  @endif
             </td>
         </tr>
