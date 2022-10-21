@@ -1,0 +1,131 @@
+.main_title {
+  background: #f4f5f5;
+  padding: 28px 11%;
+}
+.main_link_title a {
+  font-family: "Oxygen";
+  color: #000000;
+}
+.main_container {
+  padding: 34px 124px 48px;
+  background: #fcfcfc;
+  overflow: auto;
+  min-width: 1360px;
+  display: flex;
+  gap: 30px;
+}
+.main_img {
+  display: flex;
+  gap: 15px;
+}
+.item_img_demo {
+  width: 79px;
+  height: 80px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.main_img_show {
+  width: 363px;
+  height: 547px;
+}
+.main_img_show img {
+  width: 100%;
+  height: 100%;
+}
+.main_content {
+  flex: 1;
+}
+.content_title {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.content_title p {
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2b2f32;
+}
+.content_title .title_type {
+  font-family: "DM Sans";
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  background: #c97178;
+  color: #ffffff;
+}
+.content_price {
+  font-family: "Oxygen";
+  font-size: 32px;
+  color: #c97178;
+  margin-top: 20px;
+}
+.content_text {
+  font-family: "Oxygen";
+  color: #55595b;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.content_add_cart {
+  display: flex;
+  margin-bottom: 55px;
+}
+.add_cart_subtraction,
+.add_cart_summation {
+  height: 52px;
+  line-height: 52px;
+  padding: 0px 18px;
+  background: #2b2f32;
+  color: #ffffff;
+  font-size: 30px;
+  cursor: pointer;
+}
+.add_cart_subtraction {
+  line-height: 48px;
+}
+.add_cart_value {
+  background: #f9f9f9;
+  font-family: "Oxygen";
+  text-align: center;
+  color: #000000;
+  border: unset;
+  outline: 0;
+  width: 120px;
+  cursor: pointer;
+}
+.add_cart_to {
+  font-family: "Oxygen";
+  height: 52px;
+  line-height: 52px;
+  padding: 0px 35px;
+  background: #2b2f32;
+  color: #ffffff;
+  margin-left: 25px;
+  cursor: pointer;
+}
+.content_des {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d5d5d6;
+  margin-bottom: 12px;
+}
+.content_des_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content_des_title p {
+  font-family: "DM Sans";
+  font-weight: 700;
+  color: #2b2f32;
+}
+.ct_des_item {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ct_des_item p {
+  font-family: "DM Sans";
+  color: #55595b;
+}
