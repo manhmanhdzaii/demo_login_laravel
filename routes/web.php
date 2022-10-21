@@ -63,4 +63,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
 
         Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
     });
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+
+        Route::get('/add', [CategoriesController::class, 'add'])->name('add');
+        Route::post('/add', [CategoriesController::class, 'postAdd']);
+
+        Route::get('/edit/{categoryId}', [CategoriesController::class, 'edit'])->name('edit');
+        Route::post('/edit/{categoryId}', [CategoriesController::class, 'postEdit']);
+
+        Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
+    });
 });
