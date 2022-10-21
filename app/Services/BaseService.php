@@ -6,9 +6,6 @@ use App\Services\BaseServiceInterface;
 
 class BaseService implements BaseServiceInterface
 {
-    function getAll()
-    {
-    }
 
     function find($id)
     {

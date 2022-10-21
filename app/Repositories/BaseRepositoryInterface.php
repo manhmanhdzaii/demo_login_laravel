@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 interface BaseRepositoryInterface
 {
-    public function getAll();
-
     public function find($id);
 
     public function create($attributes = []);

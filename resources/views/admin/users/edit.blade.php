@@ -16,11 +16,11 @@
 <div class="alert alert-success">
     {{session('msg')}}
 </div>
+@endif
 @if(session('err'))
 <div class="alert alert-danger">
     {{session('err')}}
 </div>
-@endif
 @endif
 <form action="" method="post">
     <div class="mb-3">
@@ -66,7 +66,7 @@
         <span style="color:red">{{$message}}</span>
         @enderror
     </div>
-    <button class="btn btn-primary" type="submit">Thêm mới</button>
+    <button class="btn btn-primary" type="submit">Cập nhật</button>
     @csrf
 </form>
 @endsection

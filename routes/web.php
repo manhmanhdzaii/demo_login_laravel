@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashbroadController;
+use App\Http\Controllers\Admin\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,5 +51,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
         Route::post('/edit/{userId}', [UserController::class, 'postEdit']);
 
         Route::get('/delete/{userId}', [UserController::class, 'delete'])->name('delete');
+    });
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+
+        Route::get('/add', [CategoriesController::class, 'add'])->name('add');
+        Route::post('/add', [CategoriesController::class, 'postAdd']);
+
+        Route::get('/edit/{categoryId}', [CategoriesController::class, 'edit'])->name('edit');
+        Route::post('/edit/{categoryId}', [CategoriesController::class, 'postEdit']);
+
+        Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
     });
 });
