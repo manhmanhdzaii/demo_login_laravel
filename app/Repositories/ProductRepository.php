@@ -45,19 +45,10 @@ class ProductRepository extends BaseRepository
     public function createProduct(object $request)
     {
         $products = new $this->products;
-        $cre_time = time();
-        $file = $request->file('img');
-        $file_name = $file->getClientOriginalName();
-        $file_name_array = explode('.', $file_name);
-        $file_extension =  end($file_name_array);
 
-        $path = 'upload/img';
-        if (!is_dir($path)) {
-            mkdir($path, 0777, TRUE);
-        }
-        $name_upload = 'img_' . rand(0, 99) . $cre_time  . '.' . $file_extension;
-        $file->move($path, $name_upload);
-        $path_img = $path . '/' . $name_upload;
+        $file = $request->file('img');
+
+        $path_img = uploadImg($file);
         //add
         $products->name = $request->name;
         $products->price = $request->price;
@@ -73,16 +64,9 @@ class ProductRepository extends BaseRepository
         if (is_array($files) && count($files) > 0) {
             $length = count($files);
             for ($i = 0; $i < $length; $i++) {
-                $file_name = $files[$i]->getClientOriginalName();
-                $file_name_array = explode('.', $file_name);
-                $file_extension =  end($file_name_array);
-                $path = 'upload/img/' . $id;
-                if (!is_dir($path)) {
-                    mkdir($path, 0777, TRUE);
-                }
-                $name_upload = 'img_' . rand(0, 99999) . $id . '.' . $file_extension;
-                $path_up = $path . '/' . $name_upload;
-                $files[$i]->move($path, $name_upload);
+
+                $path_up = uploadImg($files[$i], $id);
+
                 Img_Sub::create([
                     'product_id' => $id,
                     'path' =>  $path_up,
@@ -103,18 +87,7 @@ class ProductRepository extends BaseRepository
         if ($request->file('img') != null) {
 
             $file = $request->file('img');
-            $file_name = $file->getClientOriginalName();
-            $file_name_array = explode('.', $file_name);
-            $file_extension =  end($file_name_array);
-
-            $path = 'upload/img';
-            if (!is_dir($path)) {
-                mkdir($path, 0777, TRUE);
-            }
-            $name_upload = 'img_' . rand(0, 99) . $cre_time  . '.' . $file_extension;
-            $file->move($path, $name_upload);
-            $path_img = $path . '/' . $name_upload;
-
+            $path_img = uploadImg($file);
             $product->img = $path_img;
         }
 
@@ -133,16 +106,7 @@ class ProductRepository extends BaseRepository
             if (is_array($files) && count($files) > 0) {
                 $length = count($files);
                 for ($i = 0; $i < $length; $i++) {
-                    $file_name = $files[$i]->getClientOriginalName();
-                    $file_name_array = explode('.', $file_name);
-                    $file_extension =  end($file_name_array);
-                    $path = 'upload/img/' . $id;
-                    if (!is_dir($path)) {
-                        mkdir($path, 0777, TRUE);
-                    }
-                    $name_upload = 'img_' . rand(0, 99999) . $id . '.' . $file_extension;
-                    $path_up = $path . '/' . $name_upload;
-                    $files[$i]->move($path, $name_upload);
+                    $path_up = uploadImg($files[$i], $id);
                     Img_Sub::create([
                         'product_id' => $id,
                         'path' =>  $path_up,

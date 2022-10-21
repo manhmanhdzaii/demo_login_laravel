@@ -19,13 +19,17 @@ use App\Http\Controllers\Admin\ProductsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/home/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('home.logout');
+Route::get('/list-products', [App\Http\Controllers\HomeController::class, 'listProducts'])->name('listProducts');
+Route::get('/detail-products', [App\Http\Controllers\HomeController::class, 'detailProducts'])->name('detailProducts');
+Route::get('/carts', [App\Http\Controllers\HomeController::class, 'carts'])->name('carts');
+Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
