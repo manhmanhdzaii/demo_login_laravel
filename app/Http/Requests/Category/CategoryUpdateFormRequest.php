@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Category;
 
-use App\Http\RequestS\BaseRequest;
+use App\Http\Requests\BaseRequest;
 
 class CategoryUpdateFormRequest extends BaseRequest
 {

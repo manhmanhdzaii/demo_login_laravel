@@ -58,7 +58,7 @@ class CategoriesController extends Controller
         if ($category) {
             return view('admin.categories.edit', compact('category'));
         }
-        return redirect()->route('admin.categories.index')->with('err', 'Có lỗi xảy ra, không thể sửa thông tin người dùng này');
+        return redirect()->route('admin.categories.index')->with('err', 'Có lỗi xảy ra, không thể sửa thông tin danh mục này');
     }
 
     /**
