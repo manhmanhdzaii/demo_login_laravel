@@ -56,6 +56,7 @@ class UserController extends Controller
         }
         return redirect()->route('admin.users.index')->with('err', 'Có lỗi xảy ra, không thể sửa thông tin người dùng này');
     }
+
     /**
      * Desc: Phương thức cập nhật thông tin user trong database
      *
@@ -69,6 +70,7 @@ class UserController extends Controller
         }
         return back()->with('err', 'Có lỗi xảy ra, không thể cập nhật thông tin người dùng này');
     }
+
     /**
      * Desc: Phương thức xóa user khỏi database
      *

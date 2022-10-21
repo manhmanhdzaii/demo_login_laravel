@@ -6,9 +6,6 @@ use App\Repositories\BaseRepositoryInterface;
 
 class BaseRepository implements BaseRepositoryInterface
 {
-    function getAll()
-    {
-    }
 
     function find($id)
     {

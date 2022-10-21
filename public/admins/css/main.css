@@ -60,3 +60,7 @@
 .img_show:hover .delete_imgshow {
     display: block;
 }
+.form_list_search {
+    width: 60%;
+    margin: 20px 0px 10px 60px;
+}
