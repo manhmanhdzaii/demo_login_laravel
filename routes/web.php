@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashbroadController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,14 +65,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
         Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
     });
     Route::prefix('products')->name('products.')->group(function () {
-        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+        Route::get('/', [ProductsController::class, 'index'])->name('index');
 
-        Route::get('/add', [CategoriesController::class, 'add'])->name('add');
-        Route::post('/add', [CategoriesController::class, 'postAdd']);
+        Route::get('/add', [ProductsController::class, 'add'])->name('add');
+        Route::post('/add', [ProductsController::class, 'postAdd']);
 
-        Route::get('/edit/{categoryId}', [CategoriesController::class, 'edit'])->name('edit');
-        Route::post('/edit/{categoryId}', [CategoriesController::class, 'postEdit']);
+        Route::get('/edit/{categoryId}', [ProductsController::class, 'edit'])->name('edit');
+        Route::post('/edit/{categoryId}', [ProductsController::class, 'postEdit']);
 
-        Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
+        Route::get('/delete/{categoryId}', [ProductsController::class, 'delete'])->name('delete');
     });
 });
