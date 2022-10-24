@@ -78,9 +78,9 @@
                     <a href="{{route('carts')}}">
                         <img src="{{asset('template')}}/images/cart_img.png" alt="" />
                     </a>
-                    <div class="cart_img_absolute">0</div>
+                    <div class="cart_img_absolute">{{ countCart() }}</div>
                 </div>
-                {{-- <div class="header_cart_content">$ 0.00</div> --}}
+                <div class="header_cart_content">{{ totalCart() }}</div>
             </div>
             <div class="header_menu">
                 <img src="{{asset('template')}}/images/menu.png" alt="" />

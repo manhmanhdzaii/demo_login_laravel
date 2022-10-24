@@ -67,7 +67,11 @@ class ProductRepository extends BaseRepository
 
                 $path_up = uploadImg($files[$i], $id);
 
-                Img_Sub::create([
+                // Img_Sub::create([
+                //     'product_id' => $id,
+                //     'path' =>  $path_up,
+                // ]);
+                $products->img_sub()->create([
                     'product_id' => $id,
                     'path' =>  $path_up,
                 ]);

@@ -79,7 +79,7 @@
                     <img src="/{{$item->img}}">
                     </a>
                     <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
+                    <div class="m_b2_it_car" value="{{$item->id}}">
                         <img src="{{asset('template')}}/images/cart_item.png">
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     <img src="/{{$item->img}}">
                     </a>
                     <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
+                    <div class="m_b2_it_car" value="{{$item->id}}">
                         <img src="{{asset('template')}}/images/cart_item.png">
                     </div>
                 </div>

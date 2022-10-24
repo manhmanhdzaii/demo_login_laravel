@@ -16,7 +16,16 @@
         <div class="container_box1">
             <img src="{{asset('template')}}/images/imgcart.png" alt="">
         </div>
-        <div class="container_box2">
+        <form class="container_box2" action="{{route('updateCart')}}" method="post">
+            @csrf
+            @php
+             $carts = Session::get('carts');
+            @endphp
+            @if (!empty($carts))
+            @php
+            $products = getProductCart($carts);
+            $total = 0;
+            @endphp
             <div class="table_cart">
                 <table>
                     <tr>
@@ -33,6 +42,13 @@
                             Subtotal
                         </td>
                     </tr>
+                    @foreach($products as $product)
+                    @php
+                    $id = $product->id;
+                    $amount = $carts[$id];
+                    $price = $product->price * $amount;
+                    $total += $price;
+                    @endphp
                     <tr>
                         <td>
                             <div class="img_delete">
@@ -40,13 +56,17 @@
                             </div>
                         </td>
                         <td class="product">
-                            <img src="{{asset('template')}}/images/img_demo1.png" alt="">
+                            <a href="{{route('detailProducts', $id)}}">
+                            <img src="/{{$product->img}}" alt="">
+                            </a>
                             <div class="detail_product">
+                                <a href="{{route('detailProducts', $id)}}">
                                 <p class="name_product">
-                                    T-SHIRT WITH CREW NECK
+                                    {{$product->name}}
                                 </p>
+                                </a>
                                 <p class="price_product">
-                                    $ 312.00
+                                    {{ format_price($product->price) }}
                                 </p>
                             </div>
                         </td>
@@ -55,7 +75,7 @@
                                 <div class="count_minus">
                                     -
                                 </div>
-                                <input type="number">
+                                <input type="number" value="{{$amount}}" name="name_product[{{$id}}]">
 
 
                                 <div class="count_add">
@@ -64,97 +84,33 @@
                             </div>
                         </td>
                         <td class="price_total_product">
-                            312.00 $
+                            {{ format_price($price) }}
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="img_delete">
-                                <img src="{{asset('template')}}/images/delete_cart.png" alt="">
-                            </div>
-                        </td>
-                        <td class="product">
-                            <img src="{{asset('template')}}/images/img_demo1.png" alt="">
-                            <div class="detail_product">
-                                <p class="name_product">
-                                    T-SHIRT WITH CREW NECK
-                                </p>
-                                <p class="price_product">
-                                    $ 312.00
-                                </p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="amount_product">
-                                <div class="count_minus">
-                                    -
-                                </div>
-                                <input type="number">
-
-
-                                <div class="count_add">
-                                    +
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price_total_product">
-                            312.00 $
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="img_delete">
-                                <img src="{{asset('template')}}/images/delete_cart.png" alt="">
-                            </div>
-                        </td>
-                        <td class="product">
-                            <img src="{{asset('template')}}/images/img_demo1.png" alt="">
-                            <div class="detail_product">
-                                <p class="name_product">
-                                    T-SHIRT WITH CREW NECK
-                                </p>
-                                <p class="price_product">
-                                    $ 312.00
-                                </p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="amount_product">
-                                <div class="count_minus">
-                                    -
-                                </div>
-                                <input type="number">
-
-
-                                <div class="count_add">
-                                    +
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price_total_product">
-                            312.00 $
-                        </td>
-                    </tr>
+                   @endforeach
                     <tr class="tr_total">
                         <td></td>
                         <td colspan="2" class="text_total">It is our pleasure to serve you!</td>
                         <td>
                             <div class="total_all">
-                                1,349.00 $
+                                {{ format_price($total) }}
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="handle">
-                <button class="button_update">
+                <button class="button_update" type="submit">
                     UPDATE CART
                 </button>
-                <button class="button_checkout">
+               <a href="{{route('checkout')}}"><button class="button_checkout" type="button">
                     PROCESS TO CHECK OUT
-                </button>
+                </button></a>
             </div>
-        </div>
+            @else
+            <div class="null_cart">Không có sản phẩm nào trong giỏ hàng !</div>
+            @endif
+        </form>
 
     </div>
 </div>

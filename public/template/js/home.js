@@ -44,7 +44,7 @@ $('.m_box2_nav_item').click(function(){
                                 <img src="/`+ result[i].img +`">
                                 </a>
                                 <div class="m_b2_it_type">HOT</div>
-                                <div class="m_b2_it_car">
+                                <div class="m_b2_it_car" value="` + result[i].id  + `" onclick="addCart(this)">
                                     <img src="/template/images/cart_item.png">
                                 </div>
                             </div>

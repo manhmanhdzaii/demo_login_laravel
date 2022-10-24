@@ -38,3 +38,40 @@ $('.logout_home').click(function(){
         
     });
 })
+$('.m_b2_it_car').click(function(){
+    var val = $(this).attr('value');
+    $.ajax({
+        url: "/addOne",
+        type: 'post',
+        dataType: "json",
+        async: false,
+        data:{
+            id: val,
+        },
+        success: function(result) {
+            alert("Thêm sản phẩm vào giỏ hàng thành công");
+          window.location.reload();
+        },
+        
+    });
+})
+
+function addCart(e){
+    var val = $(e).attr('value');
+    console.log(val);
+    $.ajax({
+        url: "/addOne",
+        type: 'post',
+        dataType: "json",
+        async: false,
+        data:{
+            id: val,
+        },
+        success: function(result) {
+          
+            alert("Thêm sản phẩm vào giỏ hàng thành công");
+          window.location.reload();
+        },
+        
+    });
+}
