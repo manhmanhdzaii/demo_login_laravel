@@ -60,4 +60,7 @@
         @endif
     </tbody>
 </table>
+<div class="d-flex justify-content-center">
+    {{ $lists->links() }}
+</div>
 @endsection

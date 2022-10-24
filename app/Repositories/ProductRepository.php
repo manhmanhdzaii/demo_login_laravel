@@ -126,4 +126,34 @@ class ProductRepository extends BaseRepository
         $this->products->destroy($product->id);
         return true;
     }
+
+    /**
+     * Desc: Phương thức Tìm kiếm danh sách sản phẩm
+     *
+     */
+    public function searchListProducts(string $category, string $color, string $size, string $list_sort_post, string $search_price, string $price_min, string $price_max)
+    {
+        $list = $this->products;
+        if ($category != 0) {
+            $list =  $list->where('category_id', $category);
+        }
+        if ($color != 0) {
+            $list = $list->whereRaw('FIND_IN_SET ("' . $color . '" , color_id) > 0');
+        }
+        if ($size != 0) {
+            $list = $list->whereRaw('FIND_IN_SET ("' . $size . '" , size_id) > 0');
+        }
+        if ($search_price != 0) {
+            $list =  $list->where('price', ">=", $price_min)->where('price', "<=", $price_max);
+        }
+        if ($list_sort_post != 0) {
+            if ($list_sort_post == 2) {
+                $list =  $list->orderByDesc('price');
+            } else {
+                $list =  $list->orderBy('price');
+            }
+        }
+        $list =  $list->paginate(9);
+        return $list;
+    }
 }

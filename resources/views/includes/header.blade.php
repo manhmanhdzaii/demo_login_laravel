@@ -17,6 +17,7 @@
         integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{asset('admins')}}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    {{-- <link href="{{asset('admins')}}/css/sb-admin-2.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{asset('template')}}/css/reset.css" type="text/css" />
     <link rel="stylesheet" href="{{asset('template')}}/css/header.css" type="text/css" />
     <link rel="stylesheet" href="{{asset('template')}}/css/footer.css" type="text/css" />
@@ -58,14 +59,14 @@
             </div>
             <div class="header_navbar">
                 <a href="/">
-                    <div class="h_navbar_item h_navbar_item_tick">HOME</div>
+                    <div class="h_navbar_item">HOME</div>
                 </a>
                 <a href="#">
                     <div class="h_navbar_item">ABOUT US</div>
                 </a>
                 <a href="{{route('listProducts')}}">
-                    <div class="h_navbar_item h_navbar_item_down">
-                        <p>SHOP</p>
+                    <div class="h_navbar_item">
+                        SHOP
                     </div>
                 </a>
                 <a href="#">
@@ -79,7 +80,7 @@
                     </a>
                     <div class="cart_img_absolute">0</div>
                 </div>
-                <div class="header_cart_content">$ 0.00</div>
+                {{-- <div class="header_cart_content">$ 0.00</div> --}}
             </div>
             <div class="header_menu">
                 <img src="{{asset('template')}}/images/menu.png" alt="" />
