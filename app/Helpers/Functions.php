@@ -5,6 +5,7 @@ use App\Models\Colors;
 use App\Models\Sizes;
 use App\Models\Img_Sub;
 use App\Models\Products;
+use Illuminate\Support\Facades\Session;
 
 function getCategories()
 {
@@ -81,4 +82,37 @@ function uploadImg($file, $id = '')
     $file->move($path, $name_upload);
     $path_img = $path . '/' . $name_upload;
     return $path_img;
+}
+
+function countCart()
+{
+    $carts = Session::get('carts');
+    if (is_array($carts)) {
+        return count($carts);
+    }
+    return 0;
+}
+
+function totalCart()
+{
+    $carts = Session::get('carts');
+    if (is_array($carts)) {
+        $product_id = array_keys($carts);
+        $products = Products::whereIn('id', $product_id)->get();
+        $total = 0;
+        foreach ($products as $product) {
+            $product_id = $product->id;
+            $price = $product->price * $carts[$product_id];
+            $total += $price;
+        }
+        return "$ " . number_format($total);
+    }
+    return "$ 0.00";
+}
+
+function getProductCart($carts)
+{
+    $product_id = array_keys($carts);
+    $products = Products::whereIn('id', $product_id)->get();
+    return $products;
 }

@@ -42,12 +42,13 @@
                 t-shirt is made up of 100% organic cotton, making it crew and comfy. Plus, the shirt promises the
                 best-possible print results, making it an excellent choice for those looking to customize.
             </div>
-            <form class="content_add_cart" method="post" action="">
+            <form class="content_add_cart" method="post" action="{{route('addCart')}}">
                 <div class="add_cart_subtraction">-</div>
                 <input type="text" class="add_cart_value" value="1" name="add_cart_value">
                 <div class="add_cart_summation">+</div>
                 <input type="hidden" value="{{$product->id}}" name="product_id">
                 <input class="add_cart_to" value ="ADD TO CART" type="submit">
+                @csrf
             </form>
             <div class="content_des">
                 <div class="content_des_title">

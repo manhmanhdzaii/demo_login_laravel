@@ -108,6 +108,7 @@
     background: #2b2f32;
     color: #ffffff;
     margin-left: 25px;
+    border: none;
     cursor: pointer;
 }
 .content_des {

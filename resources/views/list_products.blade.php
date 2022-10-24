@@ -131,7 +131,7 @@
                         <div class="m_b2_it_img">
                             <a href="{{route('detailProducts', $product->id)}}"><img src="/{{ $product->img }}"></a>
                             <div class="m_b2_it_type">HOT</div>
-                            <div class="m_b2_it_car">
+                            <div class="m_b2_it_car" value="{{$product->id}}">
                                 <img src="{{asset('template')}}/images/cart_item.png">
                             </div>
                         </div>

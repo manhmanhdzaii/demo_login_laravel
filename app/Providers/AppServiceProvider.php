@@ -13,6 +13,7 @@ use App\Services\BaseService;
 use App\Services\UserService;
 use App\Services\CategoryService;
 use App\Services\ProductService;
+use App\Services\CartService;
 
 use Illuminate\Pagination\Paginator;
 
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(BaseServiceInterface::class, UserService::class);
         $this->app->singleton(BaseServiceInterface::class, CategoryService::class);
         $this->app->singleton(BaseServiceInterface::class, ProductService::class);
+        $this->app->singleton(BaseServiceInterface::class, CartService::class);
     }
 
     /**

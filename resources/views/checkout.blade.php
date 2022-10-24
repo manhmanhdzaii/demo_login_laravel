@@ -9,14 +9,14 @@
 <div class="main">
     <div class="main_title">
         <div class="main_link_title">
-            <a href="#">Home</a>/<a href="#">Cart</a>
+            <a href="/">Home</a>/<a href="{{route('carts')}}">Cart</a>
         </div>
     </div>
     <div class="main_container">
         <div class="container_box1">
             <img src="{{asset('template')}}/images/imgcheckout.png" alt="">
         </div>
-        <div class="container_box2">
+        <form class="container_box2" onsubmit="return false;" id="checkout">
             <div class="box2_left">
                 <div class="box2_left_box1">
                     <div class="box2_title">
@@ -26,34 +26,27 @@
                     <div class="box_input_container">
                         <div class="box_input">
                             <p>Name</p>
-                            <input type="text">
+                            <input type="text" name="name" placeholder="Nhập tên..">
+                            <p class="err"></p>
                         </div>
                         <div class="box_input">
                             <p>Phone Number</p>
-                            <input type="text">
+                            <input type="text" placeholder="Nhập số điện thoại..." name="phone"> 
+                            <p class="err"></p>
                         </div>
                     </div>
                     <div class="box_input_container">
                         <div class="box_input">
-                            <p>City</p>
-                            <input type="text">
-                        </div>
-                        <div class="box_input">
-                            <p>Zip Code</p>
-                            <input type="text">
+                            <p>Email</p>
+                            <input type="text" placeholder="Nhập email.." name="email">
+                            <p class="err"></p>
                         </div>
                     </div>
                     <div class="box_input_container">
                         <div class="box_input">
-                            <p>City</p>
-                            <input type="text">
-                        </div>
-                        <div class="box_select">
-                            <p>Zip Code</p>
-                            <select>
-                                <option value="">Home</option>
-                                <option value="">Office</option>
-                            </select>
+                            <p>Address</p>
+                            <input type="text" name="city" placeholder="Nhập địa chỉ..">
+                            <p class="err"></p>
                         </div>
                     </div>
                     <div class="box_checkbox_container">
@@ -66,10 +59,12 @@
                             <p>Every day of the week (matches home address)</p>
                         </div>
                     </div>
+                    <p class="err"></p>
                     <div class="box_input_container">
                         <div class="box_input">
                             <p>Note</p>
-                            <textarea placeholder="Type something here..."></textarea>
+                            <textarea placeholder="Type something here..." name="note"></textarea>
+                            <p class="err"></p>
                         </div>
                     </div>
                 </div>
@@ -96,45 +91,36 @@
                     Products
                 </div>
                 <div class="all_product">
+                    @php
+                    $carts = Session::get('carts');
+                    $products = getProductCart($carts);
+                    $total = 0;
+                    @endphp
+                    @foreach ($products as $product)
+                    @php
+                    $id = $product->id;
+                    $amount = $carts[$id];
+                    $price = $product->price * $amount;
+                    $total += $price;
+                    @endphp
                     <div class="detail_product">
-                        <img src="{{asset('template')}}/images/img_demo2.png" alt="">
+                        <a href="{{route('detailProducts', $id)}}">
+                        <img src="/{{ $product->img }}" alt="">
+                        </a>
                         <div class="product_content">
-                            <div class="product_name">
-                                T-Shirt with crew neck x1
-                            </div>
+                            <a href="{{route('detailProducts', $id)}}">
+                                <div class="product_name">
+                                    {{ $product->name }} x{{$amount}}
+                                </div>
+                            </a>
 
                             <div class="product_price">
-                                $ 312.00
+                                {{ format_price($product->price) }}
                             </div>
 
                         </div>
                     </div>
-                    <div class="detail_product">
-                        <img src="{{asset('template')}}/images/img_demo2.png" alt="">
-                        <div class="product_content">
-                            <div class="product_name">
-                                T-Shirt with crew neck x1
-                            </div>
-
-                            <div class="product_price">
-                                $ 312.00
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="detail_product">
-                        <img src="{{asset('template')}}/images/img_demo2.png" alt="">
-                        <div class="product_content">
-                            <div class="product_name">
-                                T-Shirt with crew neck x1
-                            </div>
-
-                            <div class="product_price">
-                                $ 312.00
-                            </div>
-
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="box2_right_title">
                     Order summary
@@ -142,23 +128,23 @@
                 <div class="price_all">
                     <div class="price">
                         <p>Subtotal</p>
-                        <p class="price_secon">1,349 $</p>
+                        <p class="price_secon">{{format_price($total)}}</p>
                     </div>
                     <div class="price">
                         <p>Shipping</p>
-                        <p class="price_ship">25 $</p>
+                        <p class="price_ship">0 $</p>
                     </div>
                 </div>
                 <div class="price_total">
                     <p>TOTAL</p>
-                    <p class="price_after">1,374 $</p>
+                    <p class="price_after">{{format_price($total)}}</p>
                 </div>
-                <button class="button_buy">
+                <button class="button_buy" type="submit">
                     CONFIRM ORDER
                 </button>
             </div>
 
-        </div>
+        </form>
     </div>
     <div class="popup__all hidden">
         <div class="main__popup">
@@ -171,7 +157,7 @@
                 Don't forget to keep an eye on your phone and email to receive the latest information from us.
                 Best regards!
             </div>
-            <a href="index.html">
+            <a href="/">
                 <button class="buttonback">
                     BACK TO HOMEPAGE
                 </button>
@@ -183,5 +169,6 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{asset('template')}}/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="{{asset('template')}}/js/checkout.js"></script>
 @endsection
