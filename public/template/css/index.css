@@ -209,6 +209,8 @@ a.link-login {
 }
 .m_box2_nav_item {
     color: #2b2f32;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 .m_box2_nav_item_tick {
     color: #c97178;
@@ -261,6 +263,22 @@ a.link-login {
     bottom: 16px;
     right: 16px;
 }
+.header_navbar a:first-child .h_navbar_item {
+    color: #c97178;
+    font-weight: 700;
+    position: relative;
+}
+.header_navbar a:first-child .h_navbar_item::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    margin: auto;
+    width: 50%;
+    left: 25%;
+    height: 1.5px;
+    background: #c97178;
+}
+
 .m_b2_it_car img {
     width: 20px;
     height: 20px;

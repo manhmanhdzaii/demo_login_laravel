@@ -4,6 +4,7 @@ use App\Models\Categories;
 use App\Models\Colors;
 use App\Models\Sizes;
 use App\Models\Img_Sub;
+use App\Models\Products;
 
 function getCategories()
 {
@@ -26,6 +27,38 @@ function getListImg($id)
     return Img_Sub::where('product_id', $id)->get();
 }
 
+function getItemProduct($idCategory, $limit)
+{
+    if (!empty($idCategory)) {
+        return Products::where('category_id', $idCategory)->limit($limit)->get();
+    }
+    return Products::limit($limit)->get();
+}
+function getSizeByString($str)
+{
+    $name = explode(',', $str);
+    $name_arr = [];
+    foreach ($name as $value) {
+        $sizes = Sizes::where('id', $value)->first();
+        $name_arr[] = $sizes->name;
+    }
+    return implode(', ', $name_arr);
+}
+function getColorByString($str)
+{
+    $name = explode(',', $str);
+    $name_arr = [];
+    foreach ($name as $value) {
+        $sizes = Colors::where('id', $value)->first();
+        $name_arr[] = $sizes->name;
+    }
+    return implode(', ', $name_arr);
+}
+function getNameCategory($id)
+{
+    $name = Categories::where('id', $id)->first();
+    return $name->name;
+}
 function uploadImg($file, $id = '')
 {
     $cre_time = time();

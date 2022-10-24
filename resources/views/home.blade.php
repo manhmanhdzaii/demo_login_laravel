@@ -42,9 +42,9 @@
                 Fashion is a both of womenswear and menswear store dedicated to creating considered everyday pieces
                 of the highest quality.
             </div>
-            <div class="m_box1_left_view">
+            <a href="{{route('listProducts')}}"><div class="m_box1_left_view">
                 VIEW OUR PRODUCT
-            </div>
+            </div></a>
         </div>
         <div class="m_box1_right">
             <img src="{{asset('template')}}/images/gr_1.png" class="img_b1_right_before">
@@ -61,62 +61,32 @@
             choice for you
         </div>
         <div class="m_box2_nav">
-            <div class="m_box2_nav_item m_box2_nav_item_tick">
-                WOMEN’S
+            <?php $lists = getCategories();
+            $id_list = $lists[0]->id;
+            ?>
+            @foreach($lists as $key => $value)
+            <div class="m_box2_nav_item {{ $key == 0 ? 'm_box2_nav_item_tick' : ''}}"  value={{$value->id}}>
+                {{$value->name}}
             </div>
-            <div class="m_box2_nav_item">
-                MENS
-            </div>
-            <div class="m_box2_nav_item">
-                UNISEX
-            </div>
+            @endforeach
         </div>
         <div class="m_box2_container">
+            <?php $productCategory = getItemProduct($id_list,4)?>
+            @foreach($productCategory as $item)
             <div class="m_box2_item">
                 <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
+                    <a href="{{route('detailProducts', $item->id)}}">
+                    <img src="/{{$item->img}}">
+                    </a>
                     <div class="m_b2_it_type">HOT</div>
                     <div class="m_b2_it_car">
                         <img src="{{asset('template')}}/images/cart_item.png">
                     </div>
                 </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
+                <a href="{{route('detailProducts', $item->id)}}"><div class="m_b2_it_title">{{ $item->name }}</div></a>
+                <div class="m_b2_it_price">{{ format_price($item->price)}}</div>
             </div>
-            <div class="m_box2_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box2_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box2_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-
+            @endforeach
         </div>
 
     </div>
@@ -133,94 +103,24 @@
             Take a look at the most popular costumes at Fashion in recent times. Maybe you will like it!
         </div>
         <div class="m_box4_container">
+            <?php $productCategory = getItemProduct(0,8)?>
+            @foreach($productCategory as $item)
             <div class="m_box4_item">
                 <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
+                    <a href="{{route('detailProducts', $item->id)}}">
+                    <img src="/{{$item->img}}">
+                    </a>
                     <div class="m_b2_it_type">HOT</div>
                     <div class="m_b2_it_car">
                         <img src="{{asset('template')}}/images/cart_item.png">
                     </div>
                 </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
+                <a href="{{route('detailProducts', $item->id)}}">
+                <div class="m_b2_it_title">{{ $item->name }}</div>
+                </a>
+                <div class="m_b2_it_price">{{ format_price($item->price)}}</div>
             </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
-            <div class="m_box4_item">
-                <div class="m_b2_it_img">
-                    <img src="{{asset('template')}}/images/img_sp.png">
-                    <div class="m_b2_it_type">HOT</div>
-                    <div class="m_b2_it_car">
-                        <img src="{{asset('template')}}/images/cart_item.png">
-                    </div>
-                </div>
-                <div class="m_b2_it_title">FLORAL FRILL T-SHIRT</div>
-                <div class="m_b2_it_price">$ 375.00</div>
-            </div>
+            @endforeach
 
         </div>
     </div>

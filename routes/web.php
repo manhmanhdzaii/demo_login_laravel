@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashbroadController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,16 +21,17 @@ use App\Http\Controllers\Admin\ProductsController;
 */
 
 
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/list-products', [HomeController::class, 'listProducts'])->name('listProducts');
+Route::get('/detail-products/{idProduct}', [HomeController::class, 'detailProducts'])->name('detailProducts');
+Route::get('/carts', [HomeController::class, 'carts'])->name('carts');
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
+
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/home/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('home.logout');
-Route::get('/list-products', [App\Http\Controllers\HomeController::class, 'listProducts'])->name('listProducts');
-Route::get('/detail-products', [App\Http\Controllers\HomeController::class, 'detailProducts'])->name('detailProducts');
-Route::get('/carts', [App\Http\Controllers\HomeController::class, 'carts'])->name('carts');
-Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
@@ -74,9 +76,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
         Route::get('/add', [ProductsController::class, 'add'])->name('add');
         Route::post('/add', [ProductsController::class, 'postAdd']);
 
-        Route::get('/edit/{categoryId}', [ProductsController::class, 'edit'])->name('edit');
-        Route::post('/edit/{categoryId}', [ProductsController::class, 'postEdit']);
+        Route::get('/edit/{productId}', [ProductsController::class, 'edit'])->name('edit');
+        Route::post('/edit/{productId}', [ProductsController::class, 'postEdit']);
 
-        Route::get('/delete/{categoryId}', [ProductsController::class, 'delete'])->name('delete');
+        Route::get('/delete/{productId}', [ProductsController::class, 'delete'])->name('delete');
     });
 });
+
+
+// Ajax
+/**
+ * Desc: Lấy danh sách sản phẩm theo danh mục ở trang chủ
+ */
+Route::post('/product_category', [HomeController::class, 'product_category']);
+
+/**
+ * Desc: Tìm kiếm ở trang danh sách sản phẩm
+ */
+Route::get('/search_list_products', [HomeController::class, 'search_list_products']);

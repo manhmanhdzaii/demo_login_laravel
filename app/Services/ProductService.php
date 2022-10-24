@@ -63,4 +63,14 @@ class ProductService extends BaseService
         $result = $this->productRepository->deleteProduct($product);
         return $result;
     }
+
+    /**
+     * Desc: Phương thức Tìm kiếm danh sách sản phẩm
+     *
+     */
+    public function searchListProducts(string $category, string $color, string $size, string $list_sort_post, string $search_price, string $price_min, string $price_max)
+    {
+        $result = $this->productRepository->searchListProducts($category, $color, $size, $list_sort_post, $search_price, $price_min, $price_max);
+        return $result;
+    }
 }
