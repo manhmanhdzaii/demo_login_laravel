@@ -35,6 +35,13 @@ Route::get('/carts', [HomeController::class, 'carts'])->name('carts');
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
 
+Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+    Route::get('/', [UserController::class, 'index_home'])->name('index');
+    Route::post('/', [UserController::class, 'update_info']);
+    Route::get('/change_pass', [UserController::class, 'change_pass_home'])->name('change_pass');
+    Route::post('/change_pass', [UserController::class, 'update_pass']);
+    Route::get('/order', [UserController::class, 'user_order'])->name('order');
+});
 /**
  * Desc: Giỏ hàng
  */
@@ -121,3 +128,7 @@ Route::post('/addOne', [CartController::class, 'addOne']);
  * Desc: Checkout giỏ hàng
  */
 Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);
+/**
+ * Desc: Checkout giỏ hàng
+ */
+Route::post('/update_type_order', [CartController::class, 'update_type_order']);

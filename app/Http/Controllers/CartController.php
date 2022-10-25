@@ -54,4 +54,9 @@ class CartController extends Controller
     {
         return $this->cartService->checkoutCart($request);
     }
+
+    public function update_type_order(Request $request)
+    {
+        return $this->cartService->update_type_order($request);
+    }
 }

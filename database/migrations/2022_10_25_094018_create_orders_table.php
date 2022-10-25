@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 100);
             $table->integer('customer_id');
+            $table->integer('user_id');
             $table->integer('type');
             $table->timestamps();
         });

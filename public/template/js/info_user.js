@@ -1,0 +1,1 @@
+$('#email').prop('disabled', 'disabled');

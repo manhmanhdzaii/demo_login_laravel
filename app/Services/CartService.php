@@ -90,4 +90,9 @@ class CartService extends BaseService
         $result = $this->cartRepository->checkoutCart($request);
         return $result;
     }
+    public function update_type_order(object $request)
+    {
+        $result = $this->cartRepository->update_type_order($request);
+        return $result;
+    }
 }

@@ -6,6 +6,8 @@ use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserCreateFormRequest;
 use App\Http\Requests\User\UserUpdateFormRequest;
+use App\Http\Requests\User\UpdatePassFormRequest;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -83,5 +85,41 @@ class UserController extends Controller
             return redirect()->route('admin.users.index')->with('msg', 'Xóa người dùng thành công');
         }
         return redirect()->route('admin.users.index')->with('err', 'Có lỗi xảy ra, không thể xóa thông tin người dùng này');
+    }
+
+    /**
+     * Desc: Phương thức hiển thị thông tin user bên ngoài web
+     *
+     */
+    public function index_home()
+    {
+        return view('info_user');
+    }
+
+    /**
+     * Desc: Phương thức hiển thị form đổi mật khẩu bên ngoài web
+     *
+     */
+    public function change_pass_home()
+    {
+        return view('change_pass');
+    }
+    public function update_info(Request $request)
+    {
+        $user = $this->userService->update_info($request);
+        return back()->with('msg', 'Cập nhật thông tin thành công');
+    }
+    public function update_pass(UpdatePassFormRequest $request)
+    {
+        $user = $this->userService->update_pass($request);
+        if ($user) {
+            return back()->with('msg', 'Cập nhật mật khẩu thành công');
+        }
+        return back()->with('err', 'Mật khẩu chưa chính xác');
+    }
+    public function user_order()
+    {
+        $lists = $this->userService->user_order();
+        return view('order', compact('lists'));
     }
 }

@@ -97,3 +97,26 @@ function Remove_ImgShow(e){
     
 
 }
+
+$('.select_type').change(function() {
+    type = $(this).val();
+    order = $(this).next('.id_order').val();
+    $.ajax({
+        url: "/update_type_order",
+        type: 'post',
+        dataType: "json",
+        data: {
+            type: type,
+            order: order,
+        },
+        success: function(result) {
+          if(result==true) {
+            alert('Cập nhật trạng thái thành công');
+            window.location.reload();
+          }else{
+            alert('Có lỗi xảy ra');
+          }
+        },
+        
+    });
+})
