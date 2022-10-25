@@ -36,12 +36,14 @@
             <th>Số điện thoại</th>
             <th>Email</th>
             <th>Ngày đặt hàng</th>
+            <th>Trạng thái</th>
             <th width="5%">Xem</th>
             <th width="5%">Xóa</th>
         </tr>
     </thead>
     <tbody>
         @if($lists->count() > 0)
+        <?php $types = getTypeOrder();?>    
         @foreach($lists as $key => $list)
         <tr>
             <td>{{ $key +1 }}</td>
@@ -49,6 +51,14 @@
             <td>{{ $list->customer->phone }}</td>
             <td>{{ $list->customer->email }}</td>
             <td>{{ $list->customer->created_at }}</td>
+            <td>
+                <select name="" id="" style="outline:none" class="select_type">
+                    @foreach($types as $key => $type)
+                            <option value="{{$key}}" {{$list->type == $key ? ' selected' : ''}}>{{$type}}</option>
+                    @endforeach
+                </select>
+                <input type="hidden" value="{{ $list->id }}" class="id_order">
+            </td>
             <td>
                 <a href="{{route('admin.orders.view', $list->id)}}" class="btn btn-warning">Xem</a>
             </td>

@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\User;
+use App\Models\Orders;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository extends BaseRepository
 {
@@ -76,5 +78,38 @@ class UserRepository extends BaseRepository
     {
         $this->user->destroy($user->id);
         return true;
+    }
+
+    public function update_info(object $request)
+    {
+        if (!empty($request->name)) {
+            $id = Auth::user()->id;
+            $user = $this->user->find($id);
+            $user->name = $request->name;
+            $user->save();
+        }
+        return true;
+    }
+    public function update_pass(object $request)
+    {
+
+        $email = Auth::user()->email;
+        $password = $request->password;
+
+        $check = Hash::check($password, Auth::user()->password);
+        if ($check) {
+            $id = Auth::user()->id;
+            $user = $this->user->find($id);
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return true;
+        }
+        return false;
+    }
+    public function user_order()
+    {
+        $id = Auth::user()->id;
+        $list = Orders::where('user_id', $id)->get();
+        return $list;
     }
 }

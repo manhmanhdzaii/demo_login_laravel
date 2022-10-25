@@ -8,6 +8,7 @@ use App\Models\Orders;
 use App\Models\Order_Details;
 use Illuminate\Support\Facades\Session;
 use App\Jobs\SendMail;
+use Illuminate\Support\Facades\Auth;
 
 class CartRepository extends BaseRepository
 {
@@ -71,6 +72,7 @@ class CartRepository extends BaseRepository
         $orders = $this->orders;
         $orders->code = $code;
         $orders->customer_id = $customer_id;
+        $orders->user_id = Auth::user()->id;
         $orders->type = 1;
         $orders->save();
 
@@ -94,5 +96,17 @@ class CartRepository extends BaseRepository
         $job = (new SendMail($request->email));
         dispatch($job);
         return true;
+    }
+    public function update_type_order(object $request)
+    {
+        $order_id = $request->order;
+        $type = $request->type;
+        $order =  $this->orders->find($order_id);
+        if ($order) {
+            $order->type = $type;
+            $order->save();
+            return true;
+        }
+        return false;
     }
 }

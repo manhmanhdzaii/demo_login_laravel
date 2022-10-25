@@ -5,6 +5,7 @@ use App\Models\Colors;
 use App\Models\Sizes;
 use App\Models\Img_Sub;
 use App\Models\Products;
+use App\Models\Order_Details;
 use Illuminate\Support\Facades\Session;
 
 function getCategories()
@@ -115,4 +116,19 @@ function getProductCart($carts)
     $product_id = array_keys($carts);
     $products = Products::whereIn('id', $product_id)->get();
     return $products;
+}
+
+function getTypeOrder()
+{
+    return [
+        1 => "Chờ xác nhận",
+        2 => "Đang lấy hàng",
+        3 => "Đang giao hàng",
+        4 => "Hoàn thành"
+    ];
+}
+
+function getProductOrder($id)
+{
+    return Order_Details::where('order_id', $id)->get();
 }

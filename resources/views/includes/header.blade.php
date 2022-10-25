@@ -40,8 +40,8 @@
                    <div class="h_name_user">Hello, {{ Auth::user()->name }} <i class="fas fa-caret-down"></i>
                 
                 <ul class="sub_name_user hidden">
-                    <li><a href="">Thông tin cá nhân</a></li>
-                    <li><a href="">Danh sách đơn hàng</a></li>
+                    <li><a href="{{route('user.index')}}">Thông tin cá nhân</a></li>
+                    <li><a href="{{route('user.order')}}">Danh sách đơn hàng</a></li>
                     <li class="logout_home">Đăng xuất</li>
                 </ul>
                 </div>

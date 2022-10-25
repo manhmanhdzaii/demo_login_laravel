@@ -63,4 +63,20 @@ class UserService extends BaseService
         $result = $this->userRepository->deleteUser($user);
         return $result;
     }
+
+    public function update_info(object $request)
+    {
+        $result = $this->userRepository->update_info($request);
+        return $result;
+    }
+    public function update_pass(object $request)
+    {
+        $result = $this->userRepository->update_pass($request);
+        return $result;
+    }
+    public function user_order()
+    {
+        $result = $this->userRepository->user_order();
+        return $result;
+    }
 }

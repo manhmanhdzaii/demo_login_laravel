@@ -1,0 +1,165 @@
+.main_title {
+    background: #f4f5f5;
+    padding: 28px 11%;
+}
+.main_link_title a {
+    font-family: "Oxygen";
+    color: #000000;
+}
+.main_container {
+    padding: 0px 124px;
+    background: #fcfcfc;
+    overflow: auto;
+}
+.container_box1 img {
+    width: 100%;
+    margin: 24px 0px;
+}
+.container_box2 {
+    margin: 20px 0px 60px 0px;
+    background: #ffffff;
+    box-shadow: 0px 47px 113px rgba(0, 0, 0, 0.07),
+        0px 10.7862px 18.7834px rgba(0, 0, 0, 0.0359201);
+    padding-bottom: 60px;
+}
+.table_cart {
+    padding-top: 20px;
+    width: 100%;
+    padding-right: 95px;
+    padding-left: 32px;
+}
+
+.table_cart table {
+    width: 100%;
+    border-spacing: 0px;
+}
+.table_cart table td {
+    vertical-align: middle;
+    padding: 15px 0px;
+}
+.table_cart table tr:first-child td {
+    font-family: "Oxygen";
+    border-bottom: 1px solid #d5d5d6;
+    color: #000000;
+}
+.table_cart table tr:last-child td {
+    font-family: "Oxygen";
+    border-bottom: 1px solid #d5d5d6;
+}
+.product {
+    display: flex;
+    gap: 16px;
+}
+.detail_product {
+    height: max-content;
+    display: block;
+    margin: auto 0px;
+}
+
+.amount_product {
+    height: 34px;
+    font-family: "Oxygen";
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    color: #2b2f32;
+}
+
+table tr td:nth-child(3) {
+    text-align: center;
+}
+table tr td:nth-child(4) {
+    text-align: right;
+}
+.product img {
+    width: 78px;
+}
+.name_product {
+    padding-bottom: 5px;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #2b2f32;
+    font-family: none;
+}
+.price_product {
+    font-family: "Oxygen";
+    color: #c97178;
+}
+.price_total_product {
+    font-family: "Oxygen";
+    font-weight: 700;
+    text-align: right;
+    color: #808284;
+}
+.tr_total td {
+    border-top: 1px solid #d5d5d6;
+    padding-top: 24px;
+}
+.tr_total td:first-child {
+    border-top: unset;
+}
+.text_total {
+    font-family: "Oxygen";
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+}
+.total_all {
+    font-family: "Oxygen";
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    color: #2b2f32;
+    text-align: center;
+}
+.info_order {
+    display: flex;
+    padding-top: 30px;
+    margin: 0px 30px 0px 20px;
+    font-family: "Oxygen";
+    border-bottom: 1px dashed #333;
+    align-items: center;
+    text-align: center;
+}
+.stt_order {
+    width: 5%;
+    font-family: "Oxygen";
+    color: blue;
+}
+.name_order {
+    flex: 1;
+    text-transform: uppercase;
+    font-family: "Oxygen";
+}
+.day_start {
+    width: 14%;
+    font-family: "Oxygen";
+}
+.type_order {
+    width: 15%;
+    font-family: "Oxygen";
+    color: #7b7bf1;
+}
+.btn_view button {
+    padding: 5px 20px;
+    border: unset;
+    border-radius: 5px;
+    color: #fff;
+}
+.btn_show {
+    background: #5858ee;
+}
+.btn_hidden {
+    background: #f83f3f;
+}
+.btn_view {
+    width: 16%;
+    padding: 16px 0px;
+    font-family: "Oxygen";
+}
+.zero_order {
+    text-align: center;
+    padding-top: 60px;
+    font-size: 20px;
+}
