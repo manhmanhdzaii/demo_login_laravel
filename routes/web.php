@@ -96,6 +96,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
 
         Route::get('/delete/{productId}', [ProductsController::class, 'delete'])->name('delete');
     });
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('/view/{orderId}', [CartController::class, 'view'])->name('view');
+        Route::get('/delete/{orderId}', [CartController::class, 'delete'])->name('delete');
+    });
 });
 
 // Ajax
@@ -112,3 +117,7 @@ Route::get('/search_list_products', [HomeController::class, 'search_list_product
  * Desc: Thêm sản phầm vào giỏ hàng ở phía bên ngoài
  */
 Route::post('/addOne', [CartController::class, 'addOne']);
+/**
+ * Desc: Checkout giỏ hàng
+ */
+Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);

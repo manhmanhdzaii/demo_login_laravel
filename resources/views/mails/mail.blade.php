@@ -1,0 +1,1 @@
+<p style="font-size:16; text-align:center;">Đặt hàng thành công</p>

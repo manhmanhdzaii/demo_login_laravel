@@ -39,29 +39,29 @@ $("#checkout").validate({
     errorPlacement: function(error, element) {
         $(element).parent('div').children('.err').html(error);
     },
-    // submitHandler: function() {
-    //     var name =  $('[name=name').val();
-    //     var phone =  $('[name=phone').val();
-    //     var email =  $('[name=email').val();
-    //     var city =  $('[name=city').val();
-    //     var note =  $('[name=note').val();
-    //     $.ajax({
-    //         url: "/web_demo/Ajax/checkout.php",
-    //         type: 'get',
-    //         dataType: "json",
-    //         data: {
-    //             name: name,
-    //             phone: phone,
-    //             email: email,
-    //             city: city,
-    //             note:note,
-    //         },
-    //         success: function(result) {
-    //            if(result == true){
-    //             $('.popup__all').toggleClass('hidden');
-    //            }
-    //         },
+    submitHandler: function() {
+        var name =  $('[name=name').val();
+        var phone =  $('[name=phone').val();
+        var email =  $('[name=email').val();
+        var city =  $('[name=city').val();
+        var note =  $('[name=note').val();
+        $.ajax({
+            url: "/checkoutCart",
+            type: 'post',
+            dataType: "json",
+            data: {
+                name: name,
+                phone: phone,
+                email: email,
+                city: city,
+                note:note,
+            },
+            success: function(result) {
+               if(result == true){
+                $('.popup__all').toggleClass('hidden');
+               }
+            },
             
-    //     });
-    // }
+        });
+    }
 });
