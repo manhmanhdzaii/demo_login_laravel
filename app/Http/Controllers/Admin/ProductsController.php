@@ -47,7 +47,10 @@ class ProductsController extends Controller
     public function postAdd(ProductCreateFormRequest $request)
     {
         $result = $this->productService->createProduct($request);
-        return redirect()->route('admin.products.index')->with('msg', 'Thêm sản phẩm thành công');
+        if ($result) {
+            return redirect()->route('admin.products.index')->with('msg', 'Thêm sản phẩm thành công');
+        }
+        return redirect()->route('admin.products.index')->with('err', 'Thêm sản phẩm thất bại, có lỗi xảy ra');
     }
 
     /**

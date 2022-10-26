@@ -32,6 +32,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/list-products', [HomeController::class, 'listProducts'])->name('listProducts');
 Route::get('/detail-products/{idProduct}', [HomeController::class, 'detailProducts'])->name('detailProducts');
 Route::get('/carts', [HomeController::class, 'carts'])->name('carts');
+
+/**
+ * Desc: Giao diện phía người dùng khi có auth
+ */
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::post('/home/logout', [HomeController::class, 'logout'])->name('home.logout');
 
@@ -42,6 +46,8 @@ Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
     Route::post('/change_pass', [UserController::class, 'update_pass']);
     Route::get('/order', [UserController::class, 'user_order'])->name('order');
 });
+
+
 /**
  * Desc: Giỏ hàng
  */
@@ -129,6 +135,6 @@ Route::post('/addOne', [CartController::class, 'addOne']);
  */
 Route::post('/checkoutCart', [CartController::class, 'checkoutCart']);
 /**
- * Desc: Checkout giỏ hàng
+ * Desc: Update trạng thái đơn hàng
  */
 Route::post('/update_type_order', [CartController::class, 'update_type_order']);

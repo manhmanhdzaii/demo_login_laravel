@@ -22,6 +22,9 @@ class CartRepository extends BaseRepository
         $this->order_details = $order_details;
     }
 
+    /**
+     * Desc: Lấy danh sách đơn hàng
+     */
     public function getAllOrders(object $request, string $per_page)
     {
         $lists = $this->orders;
@@ -35,12 +38,18 @@ class CartRepository extends BaseRepository
         return $lists;
     }
 
+    /**
+     * Desc: Find 1 đơn hàng theo id
+     */
     public function getOneOrder(string $id)
     {
         $order = $this->orders->find($id);
         return $order;
     }
 
+    /**
+     * Desc: Lấy chi tiết đơn hàng
+     */
     public function getAllOrderDetails(string $id, string $per_page)
     {
 
@@ -49,11 +58,19 @@ class CartRepository extends BaseRepository
         return $lists;
     }
 
+    /**
+     * Desc: Xóa đơn hàng
+     *
+     */
     public function deleteOrder(string $id)
     {
         $this->orders->destroy($id);
         return true;
     }
+
+    /**
+     * Desc: Phương thức checkout cart và add các thông tin về khách hàng và đơn hàng,chi tiết đơn hàng vào database
+     */
     public function checkoutCart(object $request)
     {
 
@@ -97,6 +114,10 @@ class CartRepository extends BaseRepository
         dispatch($job);
         return true;
     }
+
+    /**
+     * Desc: Phương thức update trạng thái đơn hàng
+     */
     public function update_type_order(object $request)
     {
         $order_id = $request->order;

@@ -89,7 +89,6 @@ class UserController extends Controller
 
     /**
      * Desc: Phương thức hiển thị thông tin user bên ngoài web
-     *
      */
     public function index_home()
     {
@@ -104,11 +103,19 @@ class UserController extends Controller
     {
         return view('change_pass');
     }
+
+    /**
+     * Desc: Phương thức cập nhật thông tin user bên ngoài web
+     */
     public function update_info(Request $request)
     {
         $user = $this->userService->update_info($request);
         return back()->with('msg', 'Cập nhật thông tin thành công');
     }
+
+    /**
+     * Desc: Phương thức đổi mật khẩu user ngoài web
+     */
     public function update_pass(UpdatePassFormRequest $request)
     {
         $user = $this->userService->update_pass($request);
@@ -117,6 +124,10 @@ class UserController extends Controller
         }
         return back()->with('err', 'Mật khẩu chưa chính xác');
     }
+
+    /**
+     * Desc: Phương thức hiển thị danh sách đơn hàng của user
+     */
     public function user_order()
     {
         $lists = $this->userService->user_order();
