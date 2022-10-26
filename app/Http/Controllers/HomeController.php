@@ -44,10 +44,18 @@ class HomeController extends Controller
         }
         return redirect()->route('listProducts');
     }
+
+    /**
+     * Desc: Trang giỏ hàng
+     */
     public function carts()
     {
         return view('carts');
     }
+
+    /**
+     * Desc: Trang checkout
+     */
     public function checkout()
     {
         return view('checkout');

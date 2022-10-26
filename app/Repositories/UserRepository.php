@@ -80,6 +80,9 @@ class UserRepository extends BaseRepository
         return true;
     }
 
+    /**
+     * Desc: Phương thức cập nhật thông tin user
+     */
     public function update_info(object $request)
     {
         if (!empty($request->name)) {
@@ -90,6 +93,10 @@ class UserRepository extends BaseRepository
         }
         return true;
     }
+
+    /**
+     * Desc: Phương thức cập nhật mật khẩu user
+     */
     public function update_pass(object $request)
     {
 
@@ -106,6 +113,10 @@ class UserRepository extends BaseRepository
         }
         return false;
     }
+
+    /**
+     * Desc: Phương thức lấy danh sách đơn hàng user
+     */
     public function user_order()
     {
         $id = Auth::user()->id;

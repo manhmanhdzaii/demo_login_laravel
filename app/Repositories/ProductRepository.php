@@ -59,26 +59,28 @@ class ProductRepository extends BaseRepository
         $products->description = $request->description;
         $products->save();
         $id = $products->id;
+        if ($id) {
+            $files = $request->file('img_sub');
+            if (is_array($files) && count($files) > 0) {
+                $length = count($files);
+                for ($i = 0; $i < $length; $i++) {
 
-        $files = $request->file('img_sub');
-        if (is_array($files) && count($files) > 0) {
-            $length = count($files);
-            for ($i = 0; $i < $length; $i++) {
+                    $path_up = uploadImg($files[$i], $id);
 
-                $path_up = uploadImg($files[$i], $id);
-
-                // Img_Sub::create([
-                //     'product_id' => $id,
-                //     'path' =>  $path_up,
-                // ]);
-                $products->img_sub()->create([
-                    'product_id' => $id,
-                    'path' =>  $path_up,
-                ]);
+                    // Img_Sub::create([
+                    //     'product_id' => $id,
+                    //     'path' =>  $path_up,
+                    // ]);
+                    $products->img_sub()->create([
+                        'product_id' => $id,
+                        'path' =>  $path_up,
+                    ]);
+                }
             }
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
