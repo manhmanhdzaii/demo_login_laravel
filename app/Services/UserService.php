@@ -90,4 +90,14 @@ class UserService extends BaseService
         $result = $this->userRepository->user_order();
         return $result;
     }
+
+    /**
+     * Desc: Phương thức cập nhật Api patch user
+     *
+     */
+    public function ApiUpdateUserPatch(object $user, object $request)
+    {
+        $result = $this->userRepository->ApiUpdateUserPatch($user, $request);
+        return $result;
+    }
 }

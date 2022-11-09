@@ -27,7 +27,7 @@ class CartRepository extends BaseRepository
      */
     public function getAllOrders(object $request, string $per_page)
     {
-        $lists = $this->orders;
+        $lists = $this->orders->with('customer');
         if (!empty($request->name)) {
             $name = $request->name;
             $lists = $lists->orWhereHas('customer', function ($query) use ($name) {
@@ -53,7 +53,7 @@ class CartRepository extends BaseRepository
     public function getAllOrderDetails(string $id, string $per_page)
     {
 
-        $lists = $this->order_details->where('order_id', $id);
+        $lists = $this->order_details->with('product')->where('order_id', $id);
         $lists = $lists->paginate($per_page)->withQueryString();
         return $lists;
     }
@@ -129,5 +129,41 @@ class CartRepository extends BaseRepository
             return true;
         }
         return false;
+    }
+
+    public function addCartApi($token, $data, $cart)
+    {
+        //create cus
+        $customer = $this->customers;
+        $customer->name = $data['name'];
+        $customer->phone = $data['phone'];
+        $customer->email = $data['email'];
+        $customer->city = $data['city'];
+        $customer->note = $data['note'];
+        $customer->save();
+
+        //Create Orders 
+        $orders = $this->orders;
+        $customer_id = $customer->id;
+        $code = md5(uniqid(rand(), true));
+        $orders->code = $code;
+        $orders->customer_id = $customer_id;
+        //lấy user_từ token
+
+        $orders->user_id = $token->tokenable_id;
+        $orders->type = 1;
+        $orders->save();
+
+        $order_id = $orders->id;
+        foreach ($cart as $value) {
+            $id = $value['productId'];
+            $product = getProductCartById($id);
+            Order_Details::create([
+                'order_id' => $order_id,
+                'product_id' => $product->id,
+                'amount' => $value['qty'],
+                'price' => $product->price,
+            ]);
+        }
     }
 }

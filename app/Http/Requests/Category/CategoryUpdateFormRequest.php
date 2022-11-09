@@ -23,6 +23,18 @@ class CategoryUpdateFormRequest extends BaseRequest
             'name' => 'required',
         ];
     }
+    public function rulesPut()
+    {
+        return [
+            'name' => 'required',
+        ];
+    }
+    public function rulesPatch()
+    {
+        return [
+            'name' => 'required',
+        ];
+    }
 
     public function messages()
     {

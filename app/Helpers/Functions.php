@@ -7,6 +7,7 @@ use App\Models\Img_Sub;
 use App\Models\Products;
 use App\Models\Order_Details;
 use Illuminate\Support\Facades\Session;
+use Laravel\Sanctum\PersonalAccessToken;
 
 function getCategories()
 {
@@ -117,6 +118,11 @@ function getProductCart($carts)
     $products = Products::whereIn('id', $product_id)->get();
     return $products;
 }
+function getProductCartById($product_id)
+{
+    $products = Products::find($product_id);
+    return $products;
+}
 
 function getTypeOrder()
 {
@@ -131,4 +137,23 @@ function getTypeOrder()
 function getProductOrder($id)
 {
     return Order_Details::where('order_id', $id)->get();
+}
+
+function gettotalProductOrder($orders)
+{
+    $total = 0;
+    foreach ($orders as $order) {
+        $price = $order->price * $order->amount;
+        $total += $price;
+    }
+    return number_format($total);
+}
+
+function getToken($val)
+{
+    $hashToken = $val;
+    $hashToken = str_replace('Bearer', '', $hashToken);
+    $hashToken = trim($hashToken);
+    $token = PersonalAccessToken::findToken($hashToken);
+    return $token;
 }

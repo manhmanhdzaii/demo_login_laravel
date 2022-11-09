@@ -130,4 +130,10 @@ class CartService extends BaseService
         $result = $this->cartRepository->update_type_order($request);
         return $result;
     }
+
+    public function addCartApi($token, $data, $cart)
+    {
+        $result = $this->cartRepository->addCartApi($token, $data, $cart);
+        return $result;
+    }
 }

@@ -26,6 +26,15 @@ class UserUpdateFormRequest extends BaseRequest
             'email_verified_at' => 'required',
         ];
     }
+    public function rulesPut()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+            'role' => 'required',
+            'email_verified_at' => 'required',
+        ];
+    }
     public function messages()
     {
         return [

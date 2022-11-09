@@ -26,6 +26,8 @@ class BaseRequest extends FormRequest
                 return $this->ruleSGet();
             case 'PUT':
                 return $this->rulesPut();
+            case 'PATCH':
+                return $this->rulesPatch();
             default:
                 throw new Exception('Not define');
         }

@@ -47,10 +47,14 @@ class UserRepository extends BaseRepository
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
+        if (isset($request->role)) {
+            $user->role = $request->role;
+        }
+        if (isset($request->email_verified_at)) {
+            $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
+        }
         $user->save();
-        return true;
+        return $user;
     }
 
     /**
@@ -64,10 +68,14 @@ class UserRepository extends BaseRepository
         if (!empty($request->password)) {
             $user->password = Hash::make($request->password);
         }
-        $user->role = $request->role;
-        $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
+        if (isset($request->role)) {
+            $user->role = $request->role;
+        }
+        if (isset($request->email_verified_at)) {
+            $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
+        }
         $user->save();
-        return true;
+        return $user;
     }
 
     /**
@@ -76,8 +84,7 @@ class UserRepository extends BaseRepository
      */
     public function deleteUser(object $user)
     {
-        $this->user->destroy($user->id);
-        return true;
+        return $this->user->destroy($user->id);
     }
 
     /**
@@ -122,5 +129,30 @@ class UserRepository extends BaseRepository
         $id = Auth::user()->id;
         $list = Orders::where('user_id', $id)->get();
         return $list;
+    }
+
+    /**
+     * Desc: Phương thức cập nhật Api patch user
+     *
+     */
+    public function ApiUpdateUserPatch(object $user, object $request)
+    {
+        if (!empty($request->name)) {
+            $user->name = $request->name;
+        }
+        if (!empty($request->email)) {
+            $user->email = $request->email;
+        }
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        if (isset($request->role)) {
+            $user->role = $request->role;
+        }
+        if (isset($request->email_verified_at)) {
+            $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
+        }
+        $user->save();
+        return $user;
     }
 }

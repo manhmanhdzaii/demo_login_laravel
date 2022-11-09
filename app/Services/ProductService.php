@@ -73,4 +73,14 @@ class ProductService extends BaseService
         $result = $this->productRepository->searchListProducts($category, $color, $size, $list_sort_post, $search_price, $price_min, $price_max);
         return $result;
     }
+
+    /**
+     * Desc: Phương thức tạo mới product
+     *
+     */
+    public function createProductApi(object $request)
+    {
+        $result = $this->productRepository->createProductApi($request);
+        return $result;
+    }
 }

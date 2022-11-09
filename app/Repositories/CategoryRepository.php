@@ -46,7 +46,7 @@ class CategoryRepository extends BaseRepository
         $category = new $this->categories;
         $category->name = $request->name;
         $category->save();
-        return true;
+        return $category;
     }
 
     /**
@@ -57,7 +57,7 @@ class CategoryRepository extends BaseRepository
     {
         $category->name = $request->name;
         $category->save();
-        return true;
+        return $category;
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryRepository extends BaseRepository
      */
     public function deleteCategory(object $category)
     {
-        $this->categories->destroy($category->id);
-        return true;
+
+        return $this->categories->destroy($category->id);
     }
 }
