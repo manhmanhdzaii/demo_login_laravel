@@ -17,21 +17,16 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * Desc: Phương thức lấy danh sách user
+     */
     public function index()
     {
         $data = $this->userService->getAll();
-        if (count($data) > 0) {
-            $status = 'success';
-        } else {
-            $status = 'no-data';
-        }
-
-        $response = [
-            'status' => $status,
-            'data' => $data
+        return [
+            'status' => count($data) > 0 ? 'success' : 'no-data',
+            'data' => $data,
         ];
-
-        return $response;
     }
 
     /**
@@ -39,6 +34,10 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * Desc: Phương thức thêm user
      */
     public function store(UserCreateFormRequest $request)
     {
@@ -55,10 +54,6 @@ class UserController extends Controller
                 'status' => 'error',
             ];
         }
-
-
-
-
         return $response;
     }
 
@@ -68,7 +63,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    /**
+     * Desc: Phương thức lấy chi tiết user
+     */
+    public function show(string $id)
     {
         $user = $this->userService->getOne($id);
         if ($user) {
@@ -92,7 +91,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateFormRequest $request, $id)
+
+    /**
+     * Desc: Phương thức cập nhật user
+     */
+    public function update(UserUpdateFormRequest $request, string $id)
     {
         $user = $this->userService->getOne($id);
         if ($user) {
@@ -124,26 +127,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    /**
+     * Desc: Phương thức xóa user
+     */
+    public function destroy(string $id)
     {
         $user = $this->userService->getOne($id);
         if ($user) {
             $result = $this->userService->deleteUser($user);
-            if ($result) {
-                $response = [
-                    'status' => 'success'
-                ];
-            } else {
-                $response = [
-                    'status' => 'error'
-                ];
-            }
-        } else {
-            $response = [
-                'status' => 'error'
+            return [
+                'status' => $result ? 'success' : 'error',
             ];
         }
-
-        return $response;
+        return [
+            'status' => 'error',
+        ];
     }
 }

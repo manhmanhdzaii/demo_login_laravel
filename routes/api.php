@@ -8,6 +8,12 @@ use App\Http\Controllers\Api\AuthController;
 
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
+
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -77,7 +83,6 @@ Route::prefix('ordersAdmin')->name('orders.')->group(function () {
     Route::delete('/{id}', [CartController::class, 'destroy'])->name('delete');
 });
 Route::prefix('infoUser')->name('infoUser.')->middleware('auth:sanctum')->group(function () {
-
     Route::get('/', [AuthController::class, 'index'])->name('index');
     Route::put('/', [AuthController::class, 'update'])->name('update');
 });
@@ -100,3 +105,70 @@ Route::get('orders', [CartController::class, 'orders']);
 //Color,Size
 Route::get('colors', [CartController::class, 'colors']);
 Route::get('sizes', [CartController::class, 'sizes']);
+
+//mật khẩu
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email'], [
+        'email.required' => 'Địa chỉ email không được để trống',
+        'email.email' => 'Địa chỉ email không đúng định dạng',
+    ]);
+
+    ResetPassword::createUrlUsing(function ($user, string $token) {
+        return env('VUE_URL') . '/password/reset-password/' . $token . '?email=' . $user->email;
+    });
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    if ($status === Password::RESET_LINK_SENT) {
+        $response = [
+            'status' =>  'success',
+            'content' =>  __($status),
+        ];
+    } else {
+        $response = [
+            'status' =>  'err',
+            'content' =>  __($status),
+        ];
+    }
+    return $response;
+});
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ], [
+        'token.required' => 'Token không được để trống',
+        'email.required' => 'Địa chỉ email không được để trống',
+        'email.email' => 'Địa chỉ email không đúng định dạng',
+        'password.required' => 'Mật khẩu không được để trống',
+        'password.confirmed' => 'Xác nhận mật khẩu không khớp',
+        'password.min' => 'Mật khẩu phải từ :min ký tự',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->setRememberToken(Str::random(60));
+
+            $user->save();
+
+            event(new PasswordReset($user));
+        }
+    );
+
+    if ($status === Password::PASSWORD_RESET) {
+        return [
+            'status' =>  'success',
+            'content' =>  __($status),
+        ];
+    }
+    return [
+        'status' =>  'err',
+        'content' =>  __($status),
+    ];
+});

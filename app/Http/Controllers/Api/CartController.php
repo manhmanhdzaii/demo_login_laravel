@@ -18,6 +18,10 @@ class CartController extends Controller
     {
         $this->cartService = $cartService;
     }
+
+    /**
+     * Desc: Phương thức lấy danh sách đơn hàng
+     */
     public  function index(Request $request)
     {
         $data = $this->cartService->getAllOrders($request, self::PER_PAGE);
@@ -35,7 +39,11 @@ class CartController extends Controller
 
         return $response;
     }
-    public function show($id)
+
+    /**
+     * Desc: Phương thức lấy chi tiết đơn hàng
+     */
+    public function show(string $id)
     {
         $order = $this->cartService->getOneOrder($id);
         if ($order) {
@@ -58,16 +66,10 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $result = $this->cartService->update_type_order($request);
-        if ($result) {
-            $response = [
-                'status' => 'success',
-            ];
-        } else {
-            $response = [
-                'status' => 'error',
-            ];
-        }
-        return $response;
+
+        return [
+            'status' => $result ? 'success' : 'error',
+        ];
     }
 
     /**
@@ -78,24 +80,19 @@ class CartController extends Controller
         $check = $this->cartService->getOneOrder($id);
         if ($check) {
             $result = $this->cartService->deleteOrder($id);
-            if ($result) {
-                $response = [
-                    'status' => 'success'
-                ];
-            } else {
-                $response = [
-                    'status' => 'error'
-                ];
-            }
-        } else {
-            $response = [
-                'status' => 'error'
+            return [
+                'status' => $result ? 'success' : 'error',
             ];
         }
 
-        return $response;
+        return [
+            'status' => 'error',
+        ];
     }
 
+    /**
+     * Desc: Phương thức lấy danh sách sản phẩm từ session cart
+     */
     public function cart_session(Request $request)
     {
         $cart = $request->cart;
@@ -109,6 +106,9 @@ class CartController extends Controller
         return $result;
     }
 
+    /**
+     * Desc: Phương thức checkout cart
+     */
     public function checkout(Request $request)
     {
 
@@ -136,6 +136,9 @@ class CartController extends Controller
         return $response;
     }
 
+    /**
+     * Desc: Phương thức lấy danh sách order theo id
+     */
     public function orders(Request $request)
     {
         $hashToken = $request->header('authorization');
@@ -171,6 +174,9 @@ class CartController extends Controller
         return $response;
     }
 
+    /**
+     * Desc: Phương thức lấy danh sách màu
+     */
     public function colors()
     {
         $data = getColors();
@@ -179,6 +185,10 @@ class CartController extends Controller
             'data' =>  $data,
         ];
     }
+
+    /**
+     * Desc: Phương thức lấy danh sách size
+     */
     public function sizes()
     {
         $data = getSizes();

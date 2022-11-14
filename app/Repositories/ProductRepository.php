@@ -164,7 +164,7 @@ class ProductRepository extends BaseRepository
     }
 
     /**
-     * Desc: Phương thức tạo mới product
+     * Desc: Phương thức tạo mới product 
      *
      */
     public function createProductApi(object $request)

@@ -9,6 +9,10 @@ use App\Models\Order_Details;
 use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 
+function PerPage()
+{
+    return 10;
+}
 function getCategories()
 {
     return Categories::get();

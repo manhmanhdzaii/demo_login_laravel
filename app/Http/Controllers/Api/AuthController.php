@@ -9,6 +9,7 @@ use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 use Carbon\Carbon;
 use App\Services\UserService;
+use App\Http\Requests\User\UserUpdateFormRequest;
 
 class AuthController extends Controller
 {
@@ -39,7 +40,7 @@ class AuthController extends Controller
         return $response;
     }
     //update user
-    public function update(Request $request)
+    public function update(UserUpdateFormRequest $request)
     {
         $token = getToken($request->header('authorization'));
         if ($token) {

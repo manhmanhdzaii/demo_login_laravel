@@ -17,23 +17,23 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
+
+    /**
+     * Desc: Phương thức lấy danh sách sản phẩm
+     */
     public function index(Request $request)
     {
         $data = $this->productService->getAll($request, self::PER_PAGE);
-        if (count($data) > 0) {
-            $status = 'success';
-        } else {
-            $status = 'no-data';
-        }
-
-        $response = [
-            'status' => $status,
+        return [
+            'status' => count($data) > 0 ? 'success' : 'no-data',
             'data' => $data,
         ];
-
-        return $response;
     }
-    public function show($id)
+
+    /**
+     * Desc: Phương thức lấy chi tiết sản phẩm
+     */
+    public function show(string $id)
     {
         $product = $this->productService->getOne($id);
         if ($product) {
@@ -58,22 +58,21 @@ class ProductController extends Controller
         }
         return $response;
     }
+
+    /**
+     * Desc: Phương thức thêm sản phẩm
+     */
     public function store(ProductCreateFormRequest $request)
     {
         $result = $this->productService->createProductApi($request);
-        if ($result) {
-            $response = [
-                'status' => 'success',
-            ];
-        } else {
-            $response = [
-                'status' => 'error',
-            ];
-        }
-
-        return $response;
+        return [
+            'status' => $result ? 'success' : 'error',
+        ];
     }
 
+    /**
+     * Desc: Phương thức lấy số lượng sản phẩm theo danh mục
+     */
     public function getNumProducts(Request $request)
     {
         if ($request->category_id == 0) {
@@ -86,19 +85,15 @@ class ProductController extends Controller
             $data = getItemProduct($request->category_id, 4);
         }
 
-        if (count($data) > 0) {
-            $status = 'success';
-        } else {
-            $status = 'no-data';
-        }
-
-        $response = [
-            'status' => $status,
+        return [
+            'status' => count($data) > 0 ? 'success' : 'no-data',
             'data' => $data,
         ];
-
-        return $response;
     }
+
+    /**
+     * Desc: Phương thức tìm kiếm sản phẩm
+     */
     public function search(Request $request)
     {
         $category = $request->category;
@@ -109,39 +104,26 @@ class ProductController extends Controller
         $price_min = $request->price_min;
         $price_max = $request->price_max;
         $data = $this->productService->searchListProducts($category, $color, $size, $list_sort_post, $search_price, $price_min, $price_max);
-        if (count($data) > 0) {
-            $status = 'success';
-        } else {
-            $status = 'no-data';
-        }
-
-        $response = [
-            'status' => $status,
+        return [
+            'status' => count($data) > 0 ? 'success' : 'no-data',
             'data' => $data,
         ];
-
-        return $response;
     }
+
+    /**
+     * Desc: Phương thức xóa sản phẩm
+     */
     public function destroy(string $product)
     {
         $product = $this->productService->getOne($product);
         if ($product) {
             $result = $this->productService->deleteProduct($product);
-            if ($result) {
-                $response = [
-                    'status' => 'success'
-                ];
-            } else {
-                $response = [
-                    'status' => 'error'
-                ];
-            }
-        } else {
-            $response = [
-                'status' => 'error'
+            return [
+                'status' => $result ? 'success' : 'error'
             ];
         }
-
-        return $response;
+        return [
+            'status' => 'error'
+        ];
     }
 }

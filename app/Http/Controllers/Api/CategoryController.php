@@ -17,38 +17,29 @@ class CategoryController extends Controller
     {
         $this->categoryService = $categoryService;
     }
+
+    /**
+     * Desc: Phương thức lấy danh sách categories
+     */
     public function index(Request $request)
     {
         $data = $this->categoryService->getAll($request, self::PER_PAGE);
-        if (count($data) > 0) {
-            $status = 'success';
-        } else {
-            $status = 'no-data';
-        }
-
-        $response = [
-            'status' => $status,
+        return [
+            'status' => count($data) > 0 ? 'success' : 'no-data',
             'data' => $data,
         ];
-
-        return $response;
     }
 
+    /**
+     * Desc: Phương thức thêm danh mục sản phẩm
+     */
     public function store(CategoryCreateFormRequest $request)
     {
         $result = $this->categoryService->createCategory($request);
-        if ($result) {
-            $response = [
-                'status' => 'success',
-                'data' =>  $result,
-            ];
-        } else {
-            $response = [
-                'status' => 'error',
-            ];
-        }
-
-        return $response;
+        return [
+            'status' => $result ? 'success' : 'error',
+            'data' =>  $result,
+        ];
     }
 
     /**
@@ -57,21 +48,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    /**
+     * Desc: Phương thức lấy chi tiết danh mục sản phẩm
+     */
+    public function show(string $id)
     {
         $category = $this->categoryService->getOne($id);
-        if ($category) {
-            $response = [
-                'status' => 'success',
-                'data' => $category
-            ];
-        } else {
-            $response = [
-                'status' => 'no-data',
-            ];
-        }
-
-        return $response;
+        return [
+            'status' => $category ? 'success' : 'error',
+            'data' =>  $category,
+        ];
     }
 
     /**
@@ -81,7 +68,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryUpdateFormRequest $request, $id)
+
+    /**
+     * Desc: Phương thức update danh mục sản phẩm
+     */
+    public function update(CategoryUpdateFormRequest $request, string $id)
     {
         $category = $this->categoryService->getOne($id);
         if ($category) {
@@ -104,26 +95,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    /**
+     * Desc: Phương thức xóa danh mục sản phẩm
+     */
+    public function destroy(string $id)
     {
         $category = $this->categoryService->getOne($id);
         if ($category) {
             $result = $this->categoryService->deleteCategory($category);
-            if ($result) {
-                $response = [
-                    'status' => 'success'
-                ];
-            } else {
-                $response = [
-                    'status' => 'error'
-                ];
-            }
-        } else {
-            $response = [
-                'status' => 'error'
+            return [
+                'status' => $result ? 'success' : 'error',
             ];
         }
-
-        return $response;
+        return [
+            'status' => 'error',
+        ];
     }
 }
