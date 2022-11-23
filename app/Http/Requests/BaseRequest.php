@@ -23,7 +23,7 @@ class BaseRequest extends FormRequest
             case 'POST':
                 return  $this->ruleSPost();
             case 'GET':
-                return $this->ruleSGet();
+                return $this->rulesGet();
             case 'PUT':
                 return $this->rulesPut();
             case 'PATCH':
@@ -50,6 +50,12 @@ class BaseRequest extends FormRequest
         ];
     }
     public function rulesPut()
+    {
+        return [
+            //
+        ];
+    }
+    public function rulesPatch()
     {
         return [
             //

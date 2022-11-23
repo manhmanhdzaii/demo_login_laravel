@@ -6,6 +6,8 @@ use App\Models\Sizes;
 use App\Models\Img_Sub;
 use App\Models\Products;
 use App\Models\Order_Details;
+use App\Models\Modules;
+use App\Models\Groups;
 use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -21,9 +23,17 @@ function getColors()
 {
     return Colors::get();
 }
+function getModules()
+{
+    return Modules::get();
+}
 function getSizes()
 {
     return Sizes::get();
+}
+function getGroups()
+{
+    return Groups::get();
 }
 function format_price($price)
 {
@@ -89,6 +99,21 @@ function uploadImg($file, $id = '')
     $path_img = $path . '/' . $name_upload;
     return $path_img;
 }
+function uploadImgInfo($file)
+{
+    $cre_time = time();
+    $file_name = $file->getClientOriginalName();
+    $file_name_array = explode('.', $file_name);
+    $file_extension =  end($file_name_array);
+    $path = 'upload/imginfo';
+    if (!is_dir($path)) {
+        mkdir($path, 0777, TRUE);
+    }
+    $name_upload = 'img_' . $cre_time  . '.' . $file_extension;
+    $file->move($path, $name_upload);
+    $path_img = $path . '/' . $name_upload;
+    return $path_img;
+}
 
 function countCart()
 {
@@ -138,6 +163,19 @@ function getTypeOrder()
     ];
 }
 
+function getRoleModule()
+{
+    return [
+        "view" => "Xem",
+        "add" => "Thêm",
+        "edit" => "Sửa",
+        "delete" => "Xóa",
+        "viewDetail" => "Xem chi tiết",
+        "updateStatus" => "Cập nhật trạng thái",
+        "permission" => "Phân quyền"
+    ];
+}
+
 function getProductOrder($id)
 {
     return Order_Details::where('order_id', $id)->get();
@@ -160,4 +198,14 @@ function getToken($val)
     $hashToken = trim($hashToken);
     $token = PersonalAccessToken::findToken($hashToken);
     return $token;
+}
+function isRole($dataArr, $module, $role = 'view')
+{
+    if (!empty($dataArr[$module])) {
+        $roleArr = $dataArr[$module];
+        if (in_array($role, $roleArr)) {
+            return true;
+        }
+        return false;
+    }
 }

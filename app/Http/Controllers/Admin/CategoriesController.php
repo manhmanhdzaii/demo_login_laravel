@@ -84,7 +84,9 @@ class CategoriesController extends Controller
         $category = $this->categoryService->getOne($category);
         if ($category) {
             $result = $this->categoryService->deleteCategory($category);
-            return redirect()->route('admin.categories.index')->with('msg', 'Xóa danh mục thành công');
+            if ($result) {
+                return redirect()->route('admin.categories.index')->with('msg', 'Xóa danh mục thành công');
+            }
         }
         return redirect()->route('admin.categories.index')->with('err', 'Có lỗi xảy ra, không thể xóa thông tin danh mục này');
     }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Models\Categories;
+use App\Models\Products;
 
 class CategoryRepository extends BaseRepository
 {
@@ -66,7 +67,10 @@ class CategoryRepository extends BaseRepository
      */
     public function deleteCategory(object $category)
     {
-
+        $products = Products::where('category_id', $category->id)->count();
+        if ($products > 0) {
+            return false;
+        }
         return $this->categories->destroy($category->id);
     }
 }

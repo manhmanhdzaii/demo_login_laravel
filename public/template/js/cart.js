@@ -11,7 +11,7 @@ $('.count_add').click(function(){
 })
 $('.count_minus').click(function(){
     var minus = $(this).parents('.amount_product').children('input').val();
-    if(minus==""| minus <= 1 ){
+    if(minus=="" || minus <= 1 ){
         $(this).parents('.amount_product').children('input').attr('value',0);
         $(this).parents('tr').remove();
     }else{

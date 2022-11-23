@@ -74,6 +74,9 @@ class UserRepository extends BaseRepository
         if (isset($request->email_verified_at)) {
             $user->email_verified_at = $request->email_verified_at == 1 ? date('Y-m-d H:i:s', time()) : NULL;
         }
+        if (isset($request->group_id)) {
+            $user->group_id = $request->group_id;
+        }
         $user->save();
         return $user;
     }

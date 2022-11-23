@@ -60,6 +60,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            @can('users')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_users"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -69,10 +70,48 @@
                 <div id="collapse_users" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{route('admin.users.index')}}">Danh sách</a>
+                        @can('users.add')
                         <a class="collapse-item" href="{{route('admin.users.add')}}">Thêm mới</a>
+                        @endcan
                     </div>
                 </div>
             </li>
+            @endcan
+            @can('groups')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_groups"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Nhóm người dùng</span>
+                </a>
+                <div id="collapse_groups" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('admin.groups.index')}}">Danh sách</a>
+                        @can('groups.add')
+                        <a class="collapse-item" href="{{route('admin.groups.add')}}">Thêm mới</a>
+                        @endcan
+                    </div>
+                </div>
+            </li>
+            @endcan
+            @can('modules')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_modules"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Modules</span>
+                </a>
+                <div id="collapse_modules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('admin.modules.index')}}">Danh sách</a>
+                        @can('modules.add')
+                        <a class="collapse-item" href="{{route('admin.modules.add')}}">Thêm mới</a>
+                        @endcan
+                    </div>
+                </div>
+            </li>
+            @endcan
+            @can('categories')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_categories"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -82,10 +121,14 @@
                 <div id="collapse_categories" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{route('admin.categories.index')}}">Danh sách</a>
+                        @can('categories.add')
                         <a class="collapse-item" href="{{route('admin.categories.add')}}">Thêm mới</a>
+                        @endcan
                     </div>
                 </div>
             </li>
+            @endcan
+            @can('products')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_products"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -95,10 +138,14 @@
                 <div id="collapse_products" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{route('admin.products.index')}}">Danh sách</a>
+                        @can('products.add')
                         <a class="collapse-item" href="{{route('admin.products.add')}}">Thêm mới</a>
+                        @endcan
                     </div>
                 </div>
             </li>
+            @endcan
+            @can('orders')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_orders"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -111,8 +158,22 @@
                     </div>
                 </div>
             </li>
-            
-          
+            @endcan
+            @can('info')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_info"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quản lý thông tin</span>
+                </a>
+                <div id="collapse_info" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{route('admin.info.contents.index')}}">Danh sách nội dung</a>
+                        <a class="collapse-item" href="{{route('admin.info.imgs.index')}}">Danh sách hình ảnh</a>
+                    </div>
+                </div>
+            </li>
+            @endcan     
         </ul>
         <!-- End of Sidebar -->
 
@@ -301,7 +362,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('admin.myInfo')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cá nhân
                                 </a>

@@ -57,7 +57,7 @@
     </div>
     <div class="mb-3">
         <label for="">Kích hoạt</label>
-        <select name="email_verified_at" class="form-control" id="role">
+        <select name="email_verified_at" class="form-control" id="email_verified_at">
             <option value="">Chọn kích hoạt</option>
             <option value="0" {{$user->email_verified_at == NULL || old('email_verified_at') == '0' ? 'selected' : ''}}>Không kích hoạt</option>
             <option value="1" {{$user->email_verified_at != NULL || old('email_verified_at') == '1' ? 'selected' : ''}}>Kích hoạt</option>

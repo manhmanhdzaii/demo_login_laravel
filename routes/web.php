@@ -8,8 +8,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashbroadController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\GroupsController;
+use App\Http\Controllers\Admin\ModulesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Admin\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,43 +79,93 @@ Route::post('/email/verification-notification', function (Request $request) {
  */
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/', [DashbroadController::class, 'index'])->name('index');
-    Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/myinfo', [DashbroadController::class, 'myInfo'])->name('myInfo');
+    Route::post('/myinfo', [DashbroadController::class, 'postMyInfo']);
+    Route::prefix('users')->name('users.')->middleware('can:users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
 
-        Route::get('/add', [UserController::class, 'add'])->name('add');
+        Route::get('/add', [UserController::class, 'add'])->name('add')->can('users.add');
         Route::post('/add', [UserController::class, 'postAdd']);
 
-        Route::get('/edit/{userId}', [UserController::class, 'edit'])->name('edit');
+        Route::get('/edit/{userId}', [UserController::class, 'edit'])->name('edit')->can('users.edit');
         Route::post('/edit/{userId}', [UserController::class, 'postEdit']);
 
-        Route::get('/delete/{userId}', [UserController::class, 'delete'])->name('delete');
+        Route::get('/delete/{userId}', [UserController::class, 'delete'])->name('delete')->can('users.delete');
     });
-    Route::prefix('categories')->name('categories.')->group(function () {
+    Route::prefix('categories')->name('categories.')->middleware('can:categories')->group(function () {
         Route::get('/', [CategoriesController::class, 'index'])->name('index');
 
-        Route::get('/add', [CategoriesController::class, 'add'])->name('add');
+        Route::get('/add', [CategoriesController::class, 'add'])->name('add')->can('categories.add');
         Route::post('/add', [CategoriesController::class, 'postAdd']);
 
-        Route::get('/edit/{categoryId}', [CategoriesController::class, 'edit'])->name('edit');
+        Route::get('/edit/{categoryId}', [CategoriesController::class, 'edit'])->name('edit')->can('categories.edit');
         Route::post('/edit/{categoryId}', [CategoriesController::class, 'postEdit']);
-
-        Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete');
+        Route::get('/delete/{categoryId}', [CategoriesController::class, 'delete'])->name('delete')->can('categories.delete');
     });
-    Route::prefix('products')->name('products.')->group(function () {
+    Route::prefix('products')->name('products.')->middleware('can:products')->group(function () {
         Route::get('/', [ProductsController::class, 'index'])->name('index');
 
-        Route::get('/add', [ProductsController::class, 'add'])->name('add');
+        Route::get('/add', [ProductsController::class, 'add'])->name('add')->can('products.add');
         Route::post('/add', [ProductsController::class, 'postAdd']);
 
-        Route::get('/edit/{productId}', [ProductsController::class, 'edit'])->name('edit');
+        Route::get('/edit/{productId}', [ProductsController::class, 'edit'])->name('edit')->can('products.edit');
         Route::post('/edit/{productId}', [ProductsController::class, 'postEdit']);
 
-        Route::get('/delete/{productId}', [ProductsController::class, 'delete'])->name('delete');
+        Route::get('/delete/{productId}', [ProductsController::class, 'delete'])->name('delete')->can('products.delete');
     });
-    Route::prefix('orders')->name('orders.')->group(function () {
+    Route::prefix('orders')->name('orders.')->middleware('can:orders')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('index');
-        Route::get('/view/{orderId}', [CartController::class, 'view'])->name('view');
-        Route::get('/delete/{orderId}', [CartController::class, 'delete'])->name('delete');
+        Route::get('/view/{orderId}', [CartController::class, 'view'])->name('view')->can('orders.viewDetail');
+        Route::get('/delete/{orderId}', [CartController::class, 'delete'])->name('delete')->can('orders.delete');;
+    });
+    Route::prefix('info')->name('info.')->middleware('can:info')->group(function () {
+        Route::prefix('contents')->name('contents.')->group(function () {
+            Route::get('/', [InfoController::class, 'indexContents'])->name('index');
+
+            Route::get('/add', [InfoController::class, 'addContents'])->name('add')->can('info.add');
+            Route::post('/add', [InfoController::class, 'postAddContents']);
+
+            Route::get('/edit/{contentId}', [InfoController::class, 'editContents'])->name('edit')->can('info.edit');
+            Route::post('/edit/{contentId}', [InfoController::class, 'postEditContents']);
+
+            Route::get('/delete/{contentId}', [InfoController::class, 'deleteContents'])->name('delete')->can('info.delete');
+        });
+        Route::prefix('imgs')->name('imgs.')->group(function () {
+            Route::get('/', [InfoController::class, 'indexImgs'])->name('index');
+
+            Route::get('/add', [InfoController::class, 'addImgs'])->name('add')->can('info.add');
+            Route::post('/add', [InfoController::class, 'postAddImgs']);
+
+            Route::get('/edit/{imgId}', [InfoController::class, 'editImgs'])->name('edit')->can('info.edit');
+            Route::post('/edit/{imgId}', [InfoController::class, 'postEditImgs']);
+
+            Route::get('/delete/{imgId}', [InfoController::class, 'deleteImgs'])->name('delete')->can('info.delete');
+        });
+    });
+    Route::prefix('groups')->name('groups.')->middleware('can:groups')->group(function () {
+        Route::get('/', [GroupsController::class, 'index'])->name('index');
+
+        Route::get('/add', [GroupsController::class, 'add'])->name('add')->can('groups.add');
+        Route::post('/add', [GroupsController::class, 'postAdd']);
+
+        Route::get('/edit/{groupId}', [GroupsController::class, 'edit'])->name('edit')->can('groups.edit');
+        Route::post('/edit/{groupId}', [GroupsController::class, 'postEdit']);
+
+        Route::get('/delete/{groupId}', [GroupsController::class, 'delete'])->name('delete')->can('groups.delete');
+
+        Route::get('/permission/{groupId}', [GroupsController::class, 'permission'])->name('permission')->can('groups.permission');;
+        Route::post('/permission/{groupId}', [GroupsController::class, 'postPermission']);
+    });
+    Route::prefix('modules')->name('modules.')->middleware('can:modules')->group(function () {
+        Route::get('/', [ModulesController::class, 'index'])->name('index');
+
+        Route::get('/add', [ModulesController::class, 'add'])->name('add')->can('modules.add');
+        Route::post('/add', [ModulesController::class, 'postAdd']);
+
+        Route::get('/edit/{moduleId}', [ModulesController::class, 'edit'])->name('edit')->can('modules.edit');
+        Route::post('/edit/{moduleId}', [ModulesController::class, 'postEdit']);
+
+        Route::get('/delete/{moduleId}', [ModulesController::class, 'delete'])->name('delete')->can('modules.delete');;
     });
 });
 

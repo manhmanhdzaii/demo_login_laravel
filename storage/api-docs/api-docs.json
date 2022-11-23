@@ -1,0 +1,1450 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "manhtb1982@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/infoUser": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Lấy thông tin user qua token",
+                "description": "Lấy thông tin user qua token",
+                "operationId": "indexinfoUser",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "id": 3,
+                                            "name": "Phạm Doãn Mạnh",
+                                            "email": "manh@gmail.com",
+                                            "email_verified_at": "2022-11-23T06:15:21.000000Z",
+                                            "role": "admin",
+                                            "group_id": 5,
+                                            "created_at": null,
+                                            "updated_at": "2022-11-23T06:15:21.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Cập nhật thông tin user qua token",
+                "description": "Cập nhật thông tin user qua token",
+                "operationId": "updateinfoUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Phạm Doãn Mạnh"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "role": {
+                                        "description": "User role",
+                                        "type": "string",
+                                        "example": "admin"
+                                    },
+                                    "email_verified_at": {
+                                        "description": "User email_verified_at",
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "id": 3,
+                                            "name": "Phạm Doãn Mạnh",
+                                            "email": "manh@gmail.com",
+                                            "email_verified_at": "2022-11-23T06:15:21.000000Z",
+                                            "role": "admin",
+                                            "group_id": 5,
+                                            "created_at": null,
+                                            "updated_at": "2022-11-23T06:15:21.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Đăng nhập",
+                "description": "Đăng nhập",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "200",
+                                        "token": "134|fIqxm9UiWBYG8ZhylxB8BbF6NUSxuRFvh8DMeBiu",
+                                        "name": "Phạm Doãn Mạnh"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Đăng ký",
+                "description": "Đăng ký",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh1"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh111@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "12345678A"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "name": "Mạnh1",
+                                            "email": "manh111@gmail.com",
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z",
+                                            "id": 30
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/ordersAdmin": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Lấy danh sách đơn hàng",
+                "description": "Lấy danh sách đơn hàng",
+                "operationId": "indexOrder",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Tên người mua",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Update trạng thái đơn hàng",
+                "description": "Update trạng thái đơn hàng",
+                "operationId": "updateTypeOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order": {
+                                        "description": "Id đơn hàng",
+                                        "type": "string",
+                                        "example": "9"
+                                    },
+                                    "type": {
+                                        "description": "Trạng thái đơn hàng",
+                                        "type": "string",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/ordersAdmin/{id}": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Lấy chi tiết đơn hàng",
+                "description": "Lấy chi tiết đơn hàng",
+                "operationId": "indexdelailtOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Chi tiết đơn hàng",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "9"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "current_page": 1,
+                                            "data": [
+                                                {
+                                                    "id": 11,
+                                                    "order_id": 9,
+                                                    "product_id": 6,
+                                                    "amount": 1,
+                                                    "price": 250,
+                                                    "created_at": "2022-10-25T10:26:43.000000Z",
+                                                    "updated_at": "2022-10-25T10:26:43.000000Z",
+                                                    "product": {
+                                                        "id": 6,
+                                                        "name": "Áo Nam 1",
+                                                        "price": 250,
+                                                        "color_id": "1,2,3,4,5",
+                                                        "size_id": "1,2,3,4,5",
+                                                        "category_id": 3,
+                                                        "img": "upload/img/img_311666577684.jpg",
+                                                        "description": "<p>&Aacute;o Nam đẹp</p>",
+                                                        "created_at": "2022-10-24T02:14:44.000000Z",
+                                                        "updated_at": "2022-10-24T02:14:44.000000Z"
+                                                    }
+                                                },
+                                                {
+                                                    "id": 12,
+                                                    "order_id": 9,
+                                                    "product_id": 7,
+                                                    "amount": 2,
+                                                    "price": 300,
+                                                    "created_at": "2022-10-25T10:26:43.000000Z",
+                                                    "updated_at": "2022-10-25T10:26:43.000000Z",
+                                                    "product": {
+                                                        "id": 7,
+                                                        "name": "Áo Nữ 1",
+                                                        "price": 300,
+                                                        "color_id": "2,3",
+                                                        "size_id": "2,3,4",
+                                                        "category_id": 4,
+                                                        "img": "upload/img/img_921666577776.jpg",
+                                                        "description": "<p>Lorem ispsum</p>",
+                                                        "created_at": "2022-10-24T02:16:16.000000Z",
+                                                        "updated_at": "2022-10-24T02:16:16.000000Z"
+                                                    }
+                                                },
+                                                {
+                                                    "id": 13,
+                                                    "order_id": 9,
+                                                    "product_id": 8,
+                                                    "amount": 1,
+                                                    "price": 700,
+                                                    "created_at": "2022-10-25T10:26:43.000000Z",
+                                                    "updated_at": "2022-10-25T10:26:43.000000Z",
+                                                    "product": {
+                                                        "id": 8,
+                                                        "name": "Áo Nam 2",
+                                                        "price": 700,
+                                                        "color_id": "1,2,4",
+                                                        "size_id": "1,3,4",
+                                                        "category_id": 3,
+                                                        "img": "upload/img/img_941666577871.jpg",
+                                                        "description": "<p>Lorem ipsum</p>",
+                                                        "created_at": "2022-10-24T02:17:51.000000Z",
+                                                        "updated_at": "2022-10-24T02:17:51.000000Z"
+                                                    }
+                                                }
+                                            ],
+                                            "first_page_url": "http://127.0.0.1:8000/api/ordersAdmin/9?page=1",
+                                            "from": 1,
+                                            "last_page": 1,
+                                            "last_page_url": "http://127.0.0.1:8000/api/ordersAdmin/9?page=1",
+                                            "links": [
+                                                {
+                                                    "url": null,
+                                                    "label": "&laquo; Previous",
+                                                    "active": false
+                                                },
+                                                {
+                                                    "url": "http://127.0.0.1:8000/api/ordersAdmin/9?page=1",
+                                                    "label": "1",
+                                                    "active": true
+                                                },
+                                                {
+                                                    "url": null,
+                                                    "label": "Next &raquo;",
+                                                    "active": false
+                                                }
+                                            ],
+                                            "next_page_url": null,
+                                            "path": "http://127.0.0.1:8000/api/ordersAdmin/9",
+                                            "per_page": 10,
+                                            "prev_page_url": null,
+                                            "to": 3,
+                                            "total": 3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Xóa đơn hàng",
+                "description": "Xóa đơn hàng",
+                "operationId": "destroyOrders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Lấy danh sách categories",
+                "description": "Lấy danh sách categories",
+                "operationId": "indexCategory",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Phân trang",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Tên danh mục",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Tạo category",
+                "description": "Tạo category",
+                "operationId": "storeCategory",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Category name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "name": "Mạnh",
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z",
+                                            "id": 37
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Lấy chi tiết category",
+                "description": "Lấy chi tiết category",
+                "operationId": "showCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "4"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "id": 4,
+                                            "name": "Áo Nữ",
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Update category",
+                "description": "Update category",
+                "operationId": "updateCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id category",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "id": 30,
+                                            "name": "Mạnh",
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Xóa category",
+                "description": "Xóa category",
+                "operationId": "destroyCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "38"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Update category",
+                "description": "Update category",
+                "operationId": "updatePatchCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id category",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "30"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "id": 30,
+                                            "name": "Mạnh",
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Lấy danh sách products",
+                "description": "Lấy danh sách products",
+                "operationId": "indexProduct",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Phân trang",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Tên sản phẩm",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Tạo product",
+                "description": "Tạo product",
+                "operationId": "storeProduct",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Product name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    },
+                                    "price": {
+                                        "description": "Product price",
+                                        "type": "string",
+                                        "example": "400"
+                                    },
+                                    "category_id": {
+                                        "description": "Product category",
+                                        "type": "string",
+                                        "example": "4"
+                                    },
+                                    "color_id": {
+                                        "description": "Product color",
+                                        "type": "string",
+                                        "enum": [
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5"
+                                        ]
+                                    },
+                                    "size_id": {
+                                        "description": "Product size",
+                                        "type": "string",
+                                        "enum": [
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5"
+                                        ]
+                                    },
+                                    "img": {
+                                        "description": "Product img",
+                                        "type": "file"
+                                    },
+                                    "img_sub[]": {
+                                        "description": "Product img_sub",
+                                        "type": "file"
+                                    },
+                                    "description": {
+                                        "description": "Product description",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Lấy chi tiết Product",
+                "description": "Lấy chi tiết Product",
+                "operationId": "showProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "10"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "data": {
+                                            "id": 10,
+                                            "name": "Áo Unisex 1",
+                                            "price": 300,
+                                            "color_id": "1,2,3,4",
+                                            "size_id": "1,3,4",
+                                            "category_id": 5,
+                                            "img": "upload/img/img_251666578007.jpg",
+                                            "description": "<p>Lorem ipsum</p>",
+                                            "created_at": "2022-10-24T02:20:07.000000Z",
+                                            "updated_at": "2022-10-24T02:20:07.000000Z"
+                                        },
+                                        "imgs": [
+                                            {
+                                                "id": 31,
+                                                "path": "upload/img/10/img_1079410.jpg",
+                                                "product_id": 10,
+                                                "created_at": "2022-10-24T02:20:07.000000Z",
+                                                "updated_at": "2022-10-24T02:20:07.000000Z"
+                                            },
+                                            {
+                                                "id": 32,
+                                                "path": "upload/img/10/img_395510.jpg",
+                                                "product_id": 10,
+                                                "created_at": "2022-10-24T02:20:07.000000Z",
+                                                "updated_at": "2022-10-24T02:20:07.000000Z"
+                                            },
+                                            {
+                                                "id": 33,
+                                                "path": "upload/img/10/img_3641910.jpg",
+                                                "product_id": 10,
+                                                "created_at": "2022-10-24T02:20:07.000000Z",
+                                                "updated_at": "2022-10-24T02:20:07.000000Z"
+                                            },
+                                            {
+                                                "id": 34,
+                                                "path": "upload/img/10/img_8871510.jpg",
+                                                "product_id": 10,
+                                                "created_at": "2022-10-24T02:20:08.000000Z",
+                                                "updated_at": "2022-10-24T02:20:08.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Xóa Product",
+                "description": "Xóa Product",
+                "operationId": "destroyProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "100"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/getNumProducts": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Lấy số lượng sản phẩm theo danh mục",
+                "description": "Lấy số lượng sản phẩm theo danh mục",
+                "operationId": "getNumProducts",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "description": "Id danh mục sản phẩm",
+                                        "type": "string",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/products/search": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Tìm kiếm product",
+                "description": "Tìm kiếm product",
+                "operationId": "search",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "color": {
+                                        "description": "Màu sản phẩm",
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "size": {
+                                        "description": "Size sản phẩm",
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "category": {
+                                        "description": "Danh mục sản phẩm",
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "search_price": {
+                                        "description": "Tìm kiếm theo giá",
+                                        "type": "string",
+                                        "example": "0"
+                                    },
+                                    "price_min": {
+                                        "description": "Giá nhỏ nhất",
+                                        "type": "string",
+                                        "example": "100"
+                                    },
+                                    "price_max": {
+                                        "description": "Giá lớn nhất",
+                                        "type": "string",
+                                        "example": "900"
+                                    },
+                                    "list_sort_post": {
+                                        "description": "Sắp xếp giá",
+                                        "type": "string",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Lấy danh sách users",
+                "description": "Lấy danh sách users",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Phân trang",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Tạo user",
+                "description": "Tạo user",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh1@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "role": {
+                                        "description": "User role",
+                                        "type": "string",
+                                        "example": "nomal"
+                                    },
+                                    "email_verified_at": {
+                                        "description": "User email_verified_at",
+                                        "type": "string",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "name": "Mạnh",
+                                            "email": "manh1@gmail.com",
+                                            "role": "nomal",
+                                            "email_verified_at": null,
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z",
+                                            "id": 30
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Lấy chi tiết user",
+                "description": "Lấy chi tiết user",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "id": 30,
+                                            "name": "Mạnh",
+                                            "email": "manh1@gmail.com",
+                                            "role": "nomal",
+                                            "email_verified_at": null,
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update user",
+                "description": "Update user",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id user",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "30"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh111@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "role": {
+                                        "description": "User role",
+                                        "type": "string",
+                                        "example": "nomal"
+                                    },
+                                    "email_verified_at": {
+                                        "description": "User email_verified_at",
+                                        "type": "string",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "id": 30,
+                                            "name": "Mạnh",
+                                            "email": "manh111@gmail.com",
+                                            "role": "nomal",
+                                            "email_verified_at": null,
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Xóa user",
+                "description": "Xóa user",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id find",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "29"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update user",
+                "description": "Update user",
+                "operationId": "updatePatch",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id user",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "30"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "User name",
+                                        "type": "string",
+                                        "example": "Mạnh"
+                                    },
+                                    "email": {
+                                        "description": "User email",
+                                        "type": "string",
+                                        "example": "manh111@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "User password",
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "role": {
+                                        "description": "User role",
+                                        "type": "string",
+                                        "example": "nomal"
+                                    },
+                                    "email_verified_at": {
+                                        "description": "User email_verified_at",
+                                        "type": "string",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "status": "success",
+                                        "user": {
+                                            "id": 30,
+                                            "name": "Mạnh",
+                                            "email": "manh111@gmail.com",
+                                            "role": "nomal",
+                                            "email_verified_at": null,
+                                            "updated_at": "2022-11-21T04:25:14.000000Z",
+                                            "created_at": "2022-11-21T04:25:14.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

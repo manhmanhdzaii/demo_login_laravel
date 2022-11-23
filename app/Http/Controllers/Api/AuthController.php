@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use App\Http\Requests\User\UserUpdateFormRequest;
 
@@ -21,6 +22,52 @@ class AuthController extends Controller
     }
 
     //lấy thông tin user bằng token
+    /**
+     * @OA\Get(
+     *     path="/api/infoUser",
+     *     tags={"auth"},
+     *     summary="Lấy thông tin user qua token",
+     *     description="Lấy thông tin user qua token",
+     *     security={{"sanctum":{}}},
+     *     operationId="indexinfoUser",
+     *  @OA\SecurityScheme(
+     *      securityScheme="bearerAuth",
+     *      in="header",
+     *      name="Authorization",
+     *      type="http",
+     *      scheme="Bearer",
+     *      bearerFormat="JWT",
+     * ),
+     *  @OA\Response(
+     *         response="200",
+     *         description="successful operation",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     example={
+     *                        "status": "success",
+     *                        "data": {
+     *                               "id": 3,
+     *                               "name": "Phạm Doãn Mạnh",
+     *                               "email": "manh@gmail.com",
+     *                               "email_verified_at": "2022-11-23T06:15:21.000000Z",
+     *                               "role": "admin",
+     *                               "group_id": 5,
+     *                               "created_at": null,
+     *                               "updated_at": "2022-11-23T06:15:21.000000Z"
+     *                          }
+     *                     }
+     *                 )
+     *             )
+     *         }
+     *  ),
+     *  @OA\Response(
+     *         response="401",
+     *         description="Unauthorized"
+     *     ),
+     * )
+     */
     public function index(Request $request)
     {
         $token = getToken($request->header('authorization'));
@@ -40,6 +87,91 @@ class AuthController extends Controller
         return $response;
     }
     //update user
+    /**
+     * @OA\Put(
+     *     path="/api/infoUser",
+     *     tags={"auth"},
+     *     summary="Cập nhật thông tin user qua token",
+     *     description="Cập nhật thông tin user qua token",
+     *     security={{"sanctum":{}}},
+     *     operationId="updateinfoUser",
+     *  @OA\SecurityScheme(
+     *      securityScheme="bearerAuth",
+     *      in="header",
+     *      name="Authorization",
+     *      type="http",
+     *      scheme="Bearer",
+     *      bearerFormat="JWT",
+     * ),
+     * @OA\RequestBody(
+     *       required=true,
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="User name",
+     *                   type="string",
+     *                   example="Phạm Doãn Mạnh"
+     *               ),
+     *               @OA\Property(
+     *                   property="email",
+     *                   description="User email",
+     *                   type="string",
+     *                   example="manh@gmail.com"
+     *               ),
+     *               @OA\Property(
+     *                   property="password",
+     *                   description="User password",
+     *                   type="string",
+     *                   example="1"
+     *               ),
+     *               @OA\Property(
+     *                   property="role",
+     *                   description="User role",
+     *                   type="string",
+     *                   example="admin"
+     *               ),
+     *               @OA\Property(
+     *                   property="email_verified_at",
+     *                   description="User email_verified_at",
+     *                   type="string",
+     *                   example="1"
+     *               ),
+     *           )
+     *       )
+     *      ),
+     *  @OA\Response(
+     *         response="200",
+     *         description="successful operation",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     example={
+     *                        "status": "success",
+     *                        "data": {
+     *                               "id": 3,
+     *                               "name": "Phạm Doãn Mạnh",
+     *                               "email": "manh@gmail.com",
+     *                               "email_verified_at": "2022-11-23T06:15:21.000000Z",
+     *                               "role": "admin",
+     *                               "group_id": 5,
+     *                               "created_at": null,
+     *                               "updated_at": "2022-11-23T06:15:21.000000Z"
+     *                          }
+     *                     }
+     *                 )
+     *             )
+     *         }
+     *  ),
+     *  @OA\Response(
+     *         response="401",
+     *         description="Unauthorized"
+     *     ),
+     * )
+     */
     public function update(UserUpdateFormRequest $request)
     {
         $token = getToken($request->header('authorization'));
@@ -59,7 +191,57 @@ class AuthController extends Controller
         }
         return $response;
     }
+
     //login kèm tạo mã thông báo
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"auth"},
+     *     summary="Đăng nhập",
+     *     description="Đăng nhập",
+     *     operationId="login",
+     *      @OA\RequestBody(
+     *       required=true,
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(
+     *               @OA\Property(
+     *                   property="email",
+     *                   description="User email",
+     *                   type="string",
+     *                   example="manh@gmail.com"
+     *               ),
+     *               @OA\Property(
+     *                   property="password",
+     *                   description="User password",
+     *                   type="string",
+     *                   example="1"
+     *               ),
+     *           )
+     *        )
+     *  ),
+     *  @OA\Response(
+     *         response="200",
+     *         description="successful operation",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     example={
+     *                         "status": "200",
+     *                         "token" : "134|fIqxm9UiWBYG8ZhylxB8BbF6NUSxuRFvh8DMeBiu",
+     *                         "name": "Phạm Doãn Mạnh"
+     *                     }
+     *                 )
+     *             )
+     *         }
+     *  ),
+     *  @OA\Response(
+     *         response="422",
+     *         description="Bad Request"
+     *     ),
+     * )
+     */
     public function login(Request $request)
     {
         $email = $request->email;
@@ -81,7 +263,7 @@ class AuthController extends Controller
         } else {
             $response = [
                 'status' => 401,
-                'title' => 'Unauthorized'
+                'title' => 'Email or Pass err'
             ];
         }
 
@@ -93,8 +275,6 @@ class AuthController extends Controller
     {
         // $user = User::find(3);
         // $tokens = $user->tokens;
-
-
         // return $user->tokens()->delete();
 
         return $request->user()->currentAccessToken()->delete();
@@ -139,5 +319,93 @@ class AuthController extends Controller
             }
             return $response;
         }
+    }
+
+    //Đăng ký
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     tags={"auth"},
+     *     summary="Đăng ký",
+     *     description="Đăng ký",
+     *     operationId="register",
+     *      @OA\RequestBody(
+     *       required=true,
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="User name",
+     *                   type="string",
+     *                   example="Mạnh1"
+     *               ),
+     *               @OA\Property(
+     *                   property="email",
+     *                   description="User email",
+     *                   type="string",
+     *                   example="manh111@gmail.com"
+     *               ),
+     *               @OA\Property(
+     *                   property="password",
+     *                   description="User password",
+     *                   type="string",
+     *                   example="12345678A"
+     *               ),
+     *           )
+     *       )
+     *      ),
+     *  @OA\Response(
+     *         response="200",
+     *         description="successful operation",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(
+     *                     example={
+     *                         "status": "success",
+     *                           "user": {
+     *                            "name": "Mạnh1",
+     *                            "email": "manh111@gmail.com",
+     *                            "updated_at": "2022-11-21T04:25:14.000000Z",
+     *                            "created_at": "2022-11-21T04:25:14.000000Z",
+     *                            "id": 30
+     *                         }
+     *                     }
+     *                 )
+     *             )
+     *         }
+     *  ),
+     *  @OA\Response(
+     *         response="422",
+     *         description="Bad Request"
+     *     ),
+     * )
+     */
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ], [
+            'required' => ':attribute không được để trống',
+            'string' => ':attribute phải là các ký tự',
+            'email' => ':attribute không đúng định dạng email',
+            'max' => ':attribute không được lớn hơn :max ký tự',
+            'unique' => ':attribute đã được sử dụng',
+            'min' => ':attribute phải lớn hơn :min ký tự'
+        ]);
+
+        $user =  User::create([
+            'name' => $request->name,
+            'email' =>  $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return [
+            'status' => 'success',
+            'user' =>  $user
+        ];
     }
 }

@@ -12,6 +12,10 @@ $('#email_verified_at').select2({
     placeholder: "Chọn kích hoạt",
     width: "100%",
 });
+$('#group_id').select2({
+    placeholder: "Chọn kích hoạt",
+    width: "100%",
+});
 $('#category_id').select2({
     placeholder: "Chọn danh mục",
     width: "100%",
@@ -21,6 +25,11 @@ $('#size_id').select2({
     multiple: true,
     width: "100%",
    
+});
+$('#role_module').select2({
+    placeholder: "Chọn quyền",
+    multiple: true,
+    width: "100%",
 });
 $('#color_id').select2({
     placeholder: "Chọn màu sản phẩm",
@@ -110,7 +119,7 @@ $('.select_type').change(function() {
             order: order,
         },
         success: function(result) {
-          if(result==true) {
+          if(result) {
             alert('Cập nhật trạng thái thành công');
             window.location.reload();
           }else{
@@ -119,4 +128,11 @@ $('.select_type').change(function() {
         },
         
     });
+})
+
+$('input[type="checkbox"]').click(function(){
+    if(this.value == 'view'){
+        let a = this.name;
+        $('input[name="'+a+'"]').prop('checked',this.checked);
+    }
 })

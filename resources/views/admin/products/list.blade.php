@@ -27,7 +27,9 @@
         </div>
     </div>
 </form>
+@can('products.add')
 <p><a href="{{route('admin.products.add')}}" class="btn btn-primary">Thêm mới</a></p>
+@endcan
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -36,8 +38,12 @@
             <th>Giá sp</th>
             <th>Hình ảnh</th>
             <th>Danh mục</th>
+            @can('products.edit')
             <th width="5%">Sửa</th>
+            @endcan
+            @can('products.delete')
             <th width="5%">Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tbody>
@@ -49,12 +55,16 @@
             <td>{{ format_price($list->price) }}</td>
             <td class="text-center"><img src='/{{ $list->img }}' width='100px'></td>
             <td>{{ $list->category->name }}</td>
+            @can('products.edit')
             <td>
                 <a href="{{route('admin.products.edit', $list->id)}}" class="btn btn-warning">Sửa</a>
             </td>
+            @endcan
+            @can('products.delete')
             <td>
                 <a href="{{route('admin.products.delete', $list->id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a>
             </td>
+            @endcan
         </tr>
         @endforeach
         @endif

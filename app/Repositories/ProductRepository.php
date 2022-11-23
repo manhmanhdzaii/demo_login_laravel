@@ -34,8 +34,8 @@ class ProductRepository extends BaseRepository
      */
     public function getOne(string $id)
     {
-        $user = $this->products->find($id);
-        return $user;
+        $product = $this->products->find($id);
+        return $product;
     }
 
     /**
@@ -120,7 +120,7 @@ class ProductRepository extends BaseRepository
                 }
             }
         }
-        return true;
+        return $product;
     }
 
     /**
@@ -206,5 +206,42 @@ class ProductRepository extends BaseRepository
         }
 
         return false;
+    }
+
+    /**
+     * Desc: Phương thức tạo mới product testing
+     *
+     */
+    public function createProductUnitest(object $request)
+    {
+        $products = new $this->products;
+
+        $path_img = 'upload/default.jpg';
+        //add
+        $products->name = $request->name;
+        $products->price = $request->price;
+        $products->color_id =  implode(',', $request->color_id);
+        $products->size_id =  implode(',', $request->size_id);
+        $products->category_id = $request->category_id;
+        $products->img = $path_img;
+        $products->description = $request->description;
+        $products->save();
+        return $products;
+    }
+
+    /**
+     * Desc: Phương thức cập nhật thông tin product testing
+     *
+     */
+    public function updateProductUniTest(object $product, object $request)
+    {
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->color_id =  implode(',', $request->color_id);
+        $product->size_id =  implode(',', $request->size_id);
+        $product->category_id = $request->category_id;
+        $product->description = $request->description;
+        $product->save();
+        return $product;
     }
 }

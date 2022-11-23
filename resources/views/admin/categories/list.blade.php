@@ -27,15 +27,20 @@
         </div>
     </div>
 </form>
-
+@can('categories.add')
 <p><a href="{{route('admin.categories.add')}}" class="btn btn-primary">Thêm mới</a></p>
+@endcan
 <table class="table table-bordered">
     <thead>
         <tr>
             <th width="5%">STT</th>
             <th>Tên danh mục</th>
+            @can('categories.edit')
             <th width="10%">Sửa</th>
+            @endcan
+            @can('categories.delete')
             <th width="10%">Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tbody>
@@ -44,12 +49,16 @@
         <tr>
             <td>{{ $key +1 }}</td>
             <td>{{ $list->name }}</td>
+            @can('categories.edit')
             <td>
                 <a href="{{route('admin.categories.edit', $list->id)}}" class="btn btn-warning">Sửa</a>
             </td>
+            @endcan
+            @can('categories.delete')
             <td>
                 <a href="{{route('admin.categories.delete', $list->id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a>
             </td>
+            @endcan
         </tr>
         @endforeach
         @endif

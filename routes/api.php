@@ -14,6 +14,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,7 +38,7 @@ Route::prefix('categories')->name('categories.')->group(function () {
 
     Route::put('/{category}', [CategoryController::class, 'update'])->name('update-put');
 
-    Route::patch('/{category}', [CategoryController::class, 'update'])->name('update-patch');
+    Route::patch('/{category}', [CategoryController::class, 'updatePatch'])->name('update-patch');
 
     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('delete');
 });
@@ -65,7 +66,7 @@ Route::prefix('users')->name('users.')->group(function () {
 
     Route::put('/{user}', [UserController::class, 'update'])->name('update-put');
 
-    Route::patch('/{user}', [UserController::class, 'update'])->name('update-patch');
+    Route::patch('/{user}', [UserController::class, 'updatePatch'])->name('update-patch');
 
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('delete');
 });
@@ -94,10 +95,15 @@ Route::get('token', [AuthController::class, 'getToken'])->middleware('auth:sanct
 
 Route::post('refresh-token', [AuthController::class, 'refreshToken']);
 
+//Api Register
+Route::post('register', [AuthController::class, 'register']);
 
 //Api getCart khi đang ở dạng sesion
-Route::post('cart_session', [CartController::class, 'cart_session']);
-Route::post('checkout', [CartController::class, 'checkout'])->middleware('auth:sanctum');
+Route::prefix('cart_session')->name('cart_session.')->group(function () {
+    Route::post('/', [CartController::class, 'cart_session']);
+    Route::post('checkout', [CartController::class, 'checkout'])->middleware('auth:sanctum');
+});
+
 
 //Order 
 Route::get('orders', [CartController::class, 'orders']);
@@ -147,7 +153,6 @@ Route::post('/reset-password', function (Request $request) {
         'password.confirmed' => 'Xác nhận mật khẩu không khớp',
         'password.min' => 'Mật khẩu phải từ :min ký tự',
     ]);
-
     $status = Password::reset(
         $request->only('email', 'password', 'password_confirmation', 'token'),
         function ($user, $password) {

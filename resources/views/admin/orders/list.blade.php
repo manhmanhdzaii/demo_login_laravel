@@ -37,8 +37,12 @@
             <th>Email</th>
             <th>Ngày đặt hàng</th>
             <th>Trạng thái</th>
+            @can('orders.viewDetail')
             <th width="5%">Xem</th>
+            @endcan
+            @can('orders.delete')
             <th width="5%">Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tbody>
@@ -52,19 +56,23 @@
             <td>{{ $list->customer->email }}</td>
             <td>{{ $list->customer->created_at }}</td>
             <td>
-                <select name="" id="" style="outline:none" class="select_type">
+                <select name="" id="" style="outline:none" class="select_type" @cannot('orders.updateStatus') disabled @endcan>
                     @foreach($types as $key => $type)
                             <option value="{{$key}}" {{$list->type == $key ? ' selected' : ''}}>{{$type}}</option>
                     @endforeach
                 </select>
                 <input type="hidden" value="{{ $list->id }}" class="id_order">
             </td>
+            @can('orders.viewDetail')
             <td>
                 <a href="{{route('admin.orders.view', $list->id)}}" class="btn btn-warning">Xem</a>
             </td>
+            @endcan
+            @can('orders.delete')
             <td>
                 <a href="{{route('admin.orders.delete', $list->id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa ?')">Xóa</a>
             </td>
+            @endcan
         </tr>
         @endforeach
         @endif
